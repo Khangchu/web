@@ -13,7 +13,7 @@
                                             <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
                                             <ul class="breadcrumbs list-none">
                                                 <li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li>
-                                                <li id="brcr_1"><a href="<?php the_permalink(439); ?>"><span>Hợp tác và hỗ trợ<i class="fa fa-lg fa-angle-right"></i></span></a></li>
+                                                <li id="brcr_1"><a href="<?php the_permalink(460); ?>"><span>Cựu sinh viên<i class="fa fa-lg fa-angle-right"></i></span></a></li>
                                                 <li id="brcr_2">
                                                   <?php
                                                         $term = get_queried_object();
@@ -51,12 +51,12 @@
                             $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
                             $term = get_queried_object();
                             $args = array(
-                                'post_type' => 'student',
+                                'post_type' => 'alumni',
                                 'posts_per_page' => 5,
                                 'paged' => $paged,
                                 'tax_query' => array(
                                     array(
-                                        'taxonomy' => 'sinhvien',
+                                        'taxonomy' => 'cuusinhvien',
                                         'field' => 'slug',
                                         'terms' => $term->slug,
                                     ),
@@ -117,7 +117,7 @@
                         <ul class="collapse in">
                             <?php
                             $terms = get_terms([
-                                'taxonomy' => 'sinhvien',
+                                'taxonomy' => 'cuusinhvien',
                                 'hide_empty' => false,
                                 'parent' => 0 
                             ]);

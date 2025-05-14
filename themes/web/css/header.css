@@ -987,3 +987,10 @@ ul.slimmenu .has-submenu  .sub-menu > li:hover > a {
     padding-left: 30px !important;
     font-size: 14px !important;
 }
+.content_flex h2 a, .content_flex span:hover a {
+         color: red !important;
+   
+}
+.custom-metis .sidebar-nav>ul>li>span, .custom-metis .sidebar-nav>ul>li>a {
+    display: none !important;
+}

@@ -116,9 +116,15 @@
     padding: 10px 9px;
     color: #b41d24;
 }
-
+.breadcrumbs li span {
+    display: inline-block;
+    white-space: normal;
+    word-break: break-word;
+    max-width: 100%;
+    font-size: 17px;
+}
 .breadcrumbs li span i {
-    margin-left: 20px;
+    margin-left: 5px;
     font-weight: bold;
     position: relative;
     top: -1px;

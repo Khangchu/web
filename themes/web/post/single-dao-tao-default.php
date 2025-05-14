@@ -58,7 +58,7 @@
                         </div>
                         <div class="news_column"></div>
                     </div>
-                          <div class="col-sm-8 col-md-6 col-sm-pull-16 col-md-pull-18 css-left">
+            <div class="col-sm-8 col-md-6 col-sm-pull-16 col-md-pull-18 css-left">
                         <div class="clearfix metismenu custom-metis">
                             <aside class="sidebar">
                                 <nav class="sidebar-nav">

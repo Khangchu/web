@@ -13,7 +13,7 @@
                                             <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
                                             <ul class="breadcrumbs list-none">
                                                 <li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li>
-                                                <li id="brcr_1"><a href="<?php the_permalink(439); ?>"><span>Hợp tác và hỗ trợ<i class="fa fa-lg fa-angle-right"></i></span></a></li>
+                                                <li id="brcr_1"><a href="<?php the_permalink(417); ?>"><span>Hợp tác và hỗ trợ<i class="fa fa-lg fa-angle-right"></i></span></a></li>
                                                 <li id="brcr_2">
                                                   <?php
                                                         $term = get_queried_object();
@@ -51,12 +51,12 @@
                             $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
                             $term = get_queried_object();
                             $args = array(
-                                'post_type' => 'student',
+                                'post_type' => 'support',
                                 'posts_per_page' => 5,
                                 'paged' => $paged,
                                 'tax_query' => array(
                                     array(
-                                        'taxonomy' => 'sinhvien',
+                                        'taxonomy' => 'hoptacvahotro',
                                         'field' => 'slug',
                                         'terms' => $term->slug,
                                     ),
@@ -115,9 +115,12 @@
                         <a title="Hợp tác và hỗ trợ" href="/vi/khoa-trung-tam/">Hợp tác và hỗ trợ</a>
                         <span class="fa arrow expand" style="margin-top: -36px;"></span>
                         <ul class="collapse in">
+                            <li class="custom-metis-sub-item  ">
+                            <a id="height-a" title="<?php echo get_the_title(411) ?>" href="<?php the_permalink(411) ?>" class="sf-with-ul"><?php echo get_the_title(411) ?></a>
+                            </li>
                             <?php
                             $terms = get_terms([
-                                'taxonomy' => 'sinhvien',
+                                'taxonomy' => 'hoptacvahotro',
                                 'hide_empty' => false,
                                 'parent' => 0 
                             ]);
