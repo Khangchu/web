@@ -16,7 +16,7 @@ Template Name: Gioi Thieu
                                     <div class="breadcrumbs-wrap">
                                         <div class="display">
                                         <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
-                                        <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="https://seee.hust.edu.vn/vi/"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="https://seee.hust.edu.vn/vi/about/"><span>Giới thiệu<i class="fa fa-lg fa-angle-right"></i></span></a></li></ul>
+                                        <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="<?php echo get_permalink()?>"><span>Giới thiệu<i class="fa fa-lg fa-angle-right"></i></span></a></li></ul>
                                         </div>
                                         <ul class="sub-breadcrumbs"></ul>
                                     </div>

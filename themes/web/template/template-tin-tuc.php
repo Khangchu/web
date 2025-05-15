@@ -20,7 +20,7 @@ Template Name: Tin Tức
                         <div class="breadcrumbs-wrap">
                             <div class="display">
                                 <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
-                                    <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="<?php get_permalink()?>"><span>Tin Tức<i class="fa fa-lg fa-angle-right"></i></span></a></li></ul>
+                                    <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="<?php get_permalink(93)?>"><span>Tin Tức<i class="fa fa-lg fa-angle-right"></i></span></a></li></ul>
                             </div>
                                     <ul class="sub-breadcrumbs"></ul>
                                 </div>
@@ -206,21 +206,3 @@ $('[data-toggle="newtabslide"]').on('click', function(e) {
 });
 });
 </script>
-
-<?php
-$terms = get_terms( 'tintuc' );
-
-echo '<ul>';
-
-foreach ( $terms as $term ) {
-    $term_link = get_term_link( $term );
-    if ( is_wp_error( $term_link ) ) {
-        continue;
-    }
-    echo '<li><a href="' . esc_url( $term_link ) . '">' . $term->name . '</a></li>';
-}
-
-echo '</ul>';
-?>
-
-?>

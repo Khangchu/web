@@ -1,3 +1,4 @@
+<?php get_header("v2")?>
 <div class="section-body">
     <div>
         <section>
@@ -11,22 +12,7 @@
                                     <div class="display">
                                         <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
                                         <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="<?php the_permalink(93)?>"><span>Tin Tức<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_2">
-                                            <?php
-                                            $post_id = get_the_ID();
-                                            $terms = get_the_terms($post_id, 'tintuc');
-                                            
-                                            if (!empty($terms) && !is_wp_error($terms)) {
-
-                                                foreach ($terms as $term) {
-                                                    $term_link = get_term_link( $term )
-                                                    ?>
-                                                    <a href="<?php echo esc_url( $term_link )?>"><span><?php echo $term->name?><i class="fa fa-lg fa-angle-right"></i></span></a>
-                                                    <?php
-                                                }
-                                            } else {
-                                                echo 'Bài viết này không có tag nào trong taxonomy này.';
-                                            }
-                                            ?>
+                                              <a href="<?php the_permalink()?>"><span><?php the_title()?><i class="fa fa-lg fa-angle-right"></i></span></a>
                                         </li></ul>
                                     </div>
                                     <ul class="subs-breadcrumbs"></ul>
@@ -261,3 +247,4 @@
     </div>
    </div>
 
+<?php get_footer('footer') ?>

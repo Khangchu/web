@@ -61,6 +61,17 @@
                                     <a href="/index.php">Trường Điện - Điện tử</a>
                                 </li>
                             </ul>
+                            <ul class="text-modile">
+                                    <li class="dong">
+                                    <a href="/index.php">Đại học</a>
+                                </li>
+                                    <li class="dong">
+                                <a href="/index.php">Bách khoa Hà Nội</a>
+                                </li>
+                                    <li class="line">
+                                <a href="/index.php">Trường Điện - Điện tử</a>
+                                </li>
+                            </ul>
                         </div>
                         
                     </div>
@@ -93,11 +104,23 @@
                 </div>
             </div>
         </div>
-        <div class="mobile-menu-items"></div>
+<div class="mobile-menu-items">
+    <div>
+        <?php
+        wp_nav_menu([
+            'theme_location' => 'mobile',
+            'menu_class' => 'menu-mobile',
+            'container' => false,
+            'walker' => new Walker_Mobile_Menu()
+        ]);
+        ?>
+    </div>
+</div>
+
     </header>
-    <div class="section-nav home-header-nav">
+    <div class="section-nav home-header-nav" style="height: 40px;">
         <div class="wraper">
-            <div class="container">
+            <div class="container" style="padding-top: 10px;">
                 <div class="row">
                     <div class="bg box-shadow">
                     <?php
@@ -128,6 +151,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const searchBtn = document.querySelector(".btn-toggle-mobile-menu");
+    const searchForm = document.querySelector(".mobile-menu-items");
+
+    if (searchBtn && searchForm) {
+        searchBtn.addEventListener("click", function (event) {
+            event.preventDefault();
+            searchForm.classList.toggle("active");
+        });
+    }
+});
 jQuery(document).ready(function($) {
     $('.slimmenu').slimmenu({
         resizeWidth: '800',
@@ -138,5 +172,31 @@ jQuery(document).ready(function($) {
     });
 });
 
+    window.addEventListener('scroll', function () {
+       const header = document.querySelector('.main-header');
+        console.log(header);
+        if (window.scrollY > 50) {
+            header.classList.add('sticky');
+        } else {
+            header.classList.remove('sticky');
+        }
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+    const arrows = document.querySelectorAll(".fa-angle-down");
+
+    arrows.forEach(arrow => {
+        arrow.addEventListener("click", function (e) {
+            e.preventDefault();
+            const parentLi = this.closest("li");
+            const submenu = parentLi.querySelector("ul");
+            if (!submenu) return;
+            parentLi.classList.toggle("active");
+            submenu.style.display = "block";
+            const isExpanded = submenu.classList.contains("in");
+            submenu.setAttribute("aria-expanded", isExpanded);
+            submenu.style.height = isExpanded ? submenu.scrollHeight + "px" : "0px";
+        });
+    });
+});
 </script>
 

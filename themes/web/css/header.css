@@ -4,6 +4,9 @@
         margin-left: -5px !important;
         margin-right: -5px !important;
     }
+    .main-header {
+        height: 240px !important;
+    }
     .col-md-12 {
         width: 50%;
     }
@@ -40,6 +43,11 @@
     }
 }
 @media ( max-width : 767.98px) {
+    #header .right-ads, #header .logo {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        width: 100%;
+    }
     .breadcrumbs-wrap {
         display: none;
     }
@@ -115,6 +123,10 @@
     }
 }
 @media (max-width: 768px) {
+        .main-header #header .logo, #header .logo
+ {
+        padding: 10px;
+    }
     .newstabhomejcarousel ul.news-slider.show-slider-mobile {
         display: block !important;
     }
@@ -162,8 +174,44 @@
         }
     }
 @media (max-width: 991px) {
+        .mobile-menu-items.active {
+        display: block;
+        border-bottom: 1px solid #ccc;
+        box-shadow: 0 3px 3px 0 rgb(0 0 0 / 30%);
+    }
+        .mobile-menu-items {
+        padding-bottom: 30px;
+        background-color: rgb(255, 255, 255);
+    }
+        .languages .language a:first-child {
+        margin-bottom: 5px;
+        margin-right: 0px;
+    }
+    .text-modile {
+        display: block !important;
+    }
+        .text-sologan, .text-modile {
+        width: 195px;
+    }
+        .text-sologan {
+        display: none;
+    }
+        #header .rsearch {
+        width: 20%;
+        padding-right: 40px;
+        margin-left: 0;
+        margin-right: 15px;
+        order: 4;
+        margin-top: 2px !important;
+    }
     .ds-grid {
         grid-gap: 30px;
+    }
+        .home-header-nav, .mobile-menu-items .collapse-button {
+        display: none;
+    }
+        .second-nav {
+        display: none;
     }
     .event-slider .slick-next, .slider-post .slick-next, .news-slider .slick-next {
         right: -10px !important;
@@ -213,9 +261,9 @@
         text-align: center;
     }
     .main-header {
-        position: relative;
-        background: none;
-        background-color: #c02135;
+        position: relative !important;
+        background: none !important;   
+        background-color: #c02135 !important;
     }
         #header .logo {
             text-align: left;
@@ -299,6 +347,12 @@
     }
     .rsearch a i {
         font-size: 20px;
+    }
+}
+@media (min-width: 650px) and (max-width: 900px) {
+    #header .rsearch {
+        margin-left: -30px;
+        text-align: center;
     }
 }
 @media (max-width: 1024px) {
@@ -667,8 +721,8 @@ body {
     max-height: 300px;
     opacity: 1;
 }
-.menu-fixed.sticky {
-    position: fixed;
+.main-header.sticky {
+    position: fixed !important;
     height: auto;
     -webkit-transition: all 0.5s ease;
     -moz-transition: position 10s;
@@ -993,4 +1047,91 @@ ul.slimmenu .has-submenu  .sub-menu > li:hover > a {
 }
 .custom-metis .sidebar-nav>ul>li>span, .custom-metis .sidebar-nav>ul>li>a {
     display: none !important;
+}
+.main-header.sticky .section-header {
+    background-color: #c02135 !important;
+}
+.main-header.sticky .home-header-nav {
+    background-color: #fdfdfe !important;
+    box-shadow: 0 0px 3px 2px rgb(0 0 0 / 30%);
+}
+.main-header.sticky .home-header-nav ul.slimmenu > li > a {
+    color: #393637 !important;
+}
+#header .logo {
+    padding-top: 10px;
+    padding-left: 5px;
+}
+#header .logo {
+    display: flex
+;
+    flex-direction: row;
+    align-items: center;
+}
+.text-modile {
+    display: none;
+}
+.text-modile {
+    padding-left: 5px;
+    margin-bottom: 0px;
+}
+.text-modile .dong a, .text-modile .dong {
+    font-weight: 400;
+    font-size: 13px;
+    color: #FFF;
+    text-transform: uppercase;
+}
+.text-modile .line a, .text-modile .line {
+    font-weight: bold;
+    font-size: 15px;
+    color: #FFF;
+    text-transform: uppercase;
+}
+.mobile-menu-items {
+    display: none;
+}
+.menu-mobile {
+    display: grid !important
+;
+    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr)) !important;
+    padding-left: 0px;
+}
+.menu-mobile>li {
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    background-color: #FFF;
+    padding: 10px 15px;
+    border-right: 1px solid #ccc;
+}
+.menu-mobile>li>div
+ {
+    position: relative;
+}
+.menu-mobile li>ul {
+    position: absolute !important;
+    width: 100%;
+    left: 0px;
+    z-index: 10;
+    background-color: #FFF;
+    display: none;
+    box-shadow: 0 0px 3px 0 rgb(0 0 0 / 30%);
+    margin-top: 10px;
+}
+.menu-mobile li ul {
+    padding-left: 0px;
+}
+.menu-mobile li a {
+    color: #4f4f4f !important;
+    font-weight: bold;
+    font-size: 16px;
+}
+.menu-mobile li>ul li {
+    text-align: left;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+}
+.menu-mobile>li>div>i {
+    position: absolute;
+    right: 0px;
+    top: 4px;
 }

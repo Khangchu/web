@@ -13,7 +13,7 @@
                                             <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
                                             <ul class="breadcrumbs list-none">
                                                 <li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li>
-                                                <li id="brcr_1"><a href="<?php the_permalink(93); ?>"><span>Tin Tức<i class="fa fa-lg fa-angle-right"></i></span></a></li>
+                                                <li id="brcr_1"><a href="<?php the_permalink(135); ?>"><span>Đào tạo<i class="fa fa-lg fa-angle-right"></i></span></a></li>
                                                 <li id="brcr_2">
                                                     <?php
                                                     $post_id = get_the_ID();

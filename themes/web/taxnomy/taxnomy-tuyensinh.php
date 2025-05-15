@@ -20,7 +20,7 @@
                                                     </a>
                                                 </li>
                                                 <li id="brcr_1">
-                                                    <a href="<?php the_permalink(91) ?>">
+                                                    <a href="<?php the_permalink(236) ?>">
                                                         <span>Tuyển Sinh<i class="fa fa-lg fa-angle-right"></i></span>
                                                     </a>
                                                 </li>

@@ -11,9 +11,8 @@
                                     <div class="breadcrumbs-wrap">
                                           <div class="display">
                                         <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
-                                        <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="<?php the_permalink(417)?>"><span>Hợ tác và hỗ trợ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_2">
-
-                                                    <a href="<?php the_permalink( )?>"><span><?php the_title()?><i class="fa fa-lg fa-angle-right"></i></span></a>
+                                        <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="<?php the_permalink(259)?>"><span>Nghiên cứu<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_2">
+                                         <a href="<?php the_permalink( )?>"><span><?php the_title()?><i class="fa fa-lg fa-angle-right"></i></span></a>
                                         </li></ul>
                                     </div>
                                     </div>
@@ -82,27 +81,29 @@
                             </div>
                         </div>
                             </div>
-<div class="col-sm-8 col-md-6 col-sm-pull-16 col-md-pull-18 css-left">
+                                              <div class="col-sm-8 col-md-6 col-sm-pull-16 col-md-pull-18 css-left">
     <div class="clearfix metismenu custom-metis">
         <aside class="sidebar">
             <nav class="sidebar-nav">
                 <ul id="menu_65">
                     <li class="active">
-                        <a title="Hợp tác và hỗ trợ" href="/vi/khoa-trung-tam/">Hợp tác và hỗ trợ</a>
-                        <span class="fa arrow expand" style="margin-top: -36px;"></span>
                         <ul class="collapse in">
-                            <li class="custom-metis-sub-item  ">
-                            <a id="height-a" title="<?php echo get_the_title(411) ?>" href="<?php the_permalink(411) ?>" class="sf-with-ul"><?php echo get_the_title(411) ?></a>
-                            </li>
                             <?php
                             $terms = get_terms([
-                                'taxonomy' => 'hoptacvahotro',
+                                'taxonomy' => 'nghiencuu',
                                 'hide_empty' => false,
                                 'parent' => 0 
                             ]);
+
                             if (!empty($terms) && !is_wp_error($terms)) {
                                 foreach ($terms as $term) {
                                     $term_link = get_term_link($term);
+                                    $child_terms = get_terms([
+                                        'taxonomy' => 'nghiencuu',
+                                        'hide_empty' => false,
+                                        'parent' => $term->term_id
+                                    ]);
+
                                     $li_class = 'custom-metis-sub-item';
                                     if (!empty($child_terms)) {
                                         $li_class .= ' active_sub';
@@ -112,6 +113,19 @@
                                         <a id="height-a" title="<?php echo esc_attr($term->name); ?>" href="<?php echo esc_url($term_link); ?>" class="sf-with-ul">
                                             <?php echo esc_html($term->name); ?>
                                         </a>
+                                        <?php if (!empty($child_terms)) { ?>
+                                            <span id="span-id" class="fa arrow expand" style="margin-top: -52px;"></span>
+                                            <ul class="collapse">
+                                                <?php foreach ($child_terms as $child) {
+                                                    $child_link = get_term_link($child); ?>
+                                                    <li class="custom-metis-sub-item">
+                                                        <a id="height-a" title="<?php echo esc_attr($child->name); ?>" href="<?php echo esc_url($child_link); ?>" class="sf-with-ul">
+                                                            <?php echo esc_html($child->name); ?>
+                                                        </a>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+                                        <?php } ?>
                                     </li>
                                     <?php
                                 }

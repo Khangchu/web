@@ -49,7 +49,7 @@ function enqueue_slick_slider() {
 function register_navwalker(){
     register_nav_menus( array(
         'primary' => __( 'Primary Menu' ),
-        'footer' => __( 'Footer Menu' ),
+        'mobile' => __( 'mobile Menu' ),
     ) );
 }
 function show_all_terms_in_menu($args, $taxonomy) {
@@ -151,11 +151,50 @@ add_action( "wp_enqueue_scripts", "nghiencuu_css" );
 add_action('after_setup_theme', function() {
     add_theme_support('post-thumbnails');
 });
+class Walker_Mobile_Menu extends Walker_Nav_Menu {
+    // Bắt đầu <ul>
+    function start_lvl( &$output, $depth = 0, $args = array() ) {
+        $indent = str_repeat("\t", $depth);
+        $output .= "\n$indent<ul>\n";
+    }
+
+    // Kết thúc </ul>
+    function end_lvl( &$output, $depth = 0, $args = array() ) {
+        $indent = str_repeat("\t", $depth);
+        $output .= "$indent</ul>\n";
+    }
+
+    // Bắt đầu <li>
+    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+        $has_children = in_array('menu-item-has-children', $item->classes);
+        $indent = str_repeat("\t", $depth);
+        $output .= "$indent<li>\n";
+
+        // Bọc trong <div>
+        $output .= "$indent\t<div>\n";
+
+        $title = esc_html($item->title);
+        $url = esc_url($item->url);
+        $output .= "$indent\t\t<a title=\"$title\" href=\"$url\">$title</a>\n";
+
+        // Thêm icon nếu có children
+        if ($has_children) {
+            $output .= "$indent\t\t<i class=\"fa fa-angle-down custom-fa\" aria-hidden=\"true\"></i>\n";
+        }
+
+        $output .= "$indent\t</div>\n";
+    }
+
+    // Kết thúc </li>
+    function end_el( &$output, $item, $depth = 0, $args = array() ) {
+        $output .= "\t</li>\n";
+    }
+}
+
 ?>
 <?php
 add_filter('nav_menu_css_class', '__return_empty_array');
 add_filter('nav_menu_item_id', '__return_false');
-// Gỡ bỏ ID trong <ul> của wp_nav_menu
 add_filter('nav_menu_attributes', function($atts, $item, $args, $depth) {
     if (isset($atts['id'])) {
         unset($atts['id']);

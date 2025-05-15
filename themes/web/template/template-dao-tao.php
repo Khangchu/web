@@ -29,7 +29,7 @@ Template Name: Đào Tạo
                                                     </a>
                                                 </li>
                                                 <li id="brcr_1">
-                                                    <a href="<?php the_permalink(135) ?>">
+                                                    <a href="<?php the_permalink() ?>">
                                                         <span>Đào tạo<i class="fa fa-lg fa-angle-right"></i></span>
                                                     </a>
                                                 </li>
