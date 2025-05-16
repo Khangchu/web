@@ -190,6 +190,15 @@ class Walker_Mobile_Menu extends Walker_Nav_Menu {
         $output .= "\t</li>\n";
     }
 }
+add_filter('nav_menu_css_class', 'remove_nav_menu_li_class', 10, 3);
+function remove_nav_menu_li_class($classes, $item, $args) {
+    if ($args->theme_location === 'primary') {
+        return [];
+    }
+    return $classes;
+}
+
+add_filter('nav_menu_item_id', '__return_null');
 
 ?>
 <?php

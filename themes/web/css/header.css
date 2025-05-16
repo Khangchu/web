@@ -37,11 +37,6 @@
         grid-template-columns: repeat(1, minmax(calc(33.33% - 40px), 1fr));
     }
 }
-@media (min-height: 500px) {
-    .container {
-        width: 100%;
-    }
-}
 @media ( max-width : 767.98px) {
     #header .right-ads, #header .logo {
         -ms-flex: 0 0 100%;
@@ -112,9 +107,6 @@
     }
     .wraper {
         width: 1200px;
-    }
-    .container {
-        width: 1150px;
     }
 }
 @media (min-width: 768px) {
@@ -730,6 +722,7 @@ body {
     -o-transition: position 10s;
     transition: all 0.5s ease;
     animation: smoothScroll 0.5s forwards;
+    background-color: transparent
 }
 @keyframes smoothScroll {
     0% {
@@ -950,7 +943,7 @@ ul, ol {
     margin-right: 10px;
 }
 .home-header-nav .bg {
-    background: transparent;
+    background: transparent !important;
     background-image: none !important;
     box-shadow: none;
     border-top-left-radius: 5px;
@@ -986,7 +979,7 @@ ul.slimmenu>li>a {
 ul.slimmenu>li>a {
     color: #393637 !important;
     font-family: 'LinhAvantGarde', sans-serif !important;
-    font-size: 17px !important;
+    font-size: 15px !important;
     font-weight: 600 !important;
     text-transform: uppercase;
 }
@@ -1134,4 +1127,23 @@ ul.slimmenu .has-submenu  .sub-menu > li:hover > a {
     position: absolute;
     right: 0px;
     top: 4px;
+}
+.second-nav {
+    z-index: 3;
+}
+.slimmenu {
+     display: flex;
+}
+ul.slimmenu>li.has-submenu:first-child {
+    display: none !important;
+}
+ul.slimmenu > li > a {
+    display: block;
+    color: #fff;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    background: none;
+     white-space: nowrap;
 }

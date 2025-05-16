@@ -4,11 +4,12 @@
             <div class="wraper">
                 <div class="container">
                     <div class="search-form-inner">
-                        <form action="/seek/" method= "get">
+                        <form action="<?php bloginfo('url'); ?>" method= "get" role="form" class="search-form">
                             <div class="form-group">
                                  <label>Nhập từ khóa tìm kiếm</label>
                                  <div class="input-group">
-                                    <input type="text" class= "form-control" name="q" maxlength="60" placeholder="Tìm...">
+                                    <input type="hidden" name="post_type" value="<?php echo get_post_type(); ?>">
+                                    <input type="text" class= "form-control" name="s" maxlength="60" placeholder="Tìm...">
                                     <div class="input-group-addon">
                                         <button class= "btn btn-primary">
                                             <i class="fa fa-search fa-flip-horizontal" aria-hidden="true"></i>
@@ -120,7 +121,7 @@
     </header>
     <div class="section-nav home-header-nav" style="height: 40px;">
         <div class="wraper">
-            <div class="container" style="padding-top: 10px;">
+            <div class="container">
                 <div class="row">
                     <div class="bg box-shadow">
                     <?php
@@ -192,9 +193,6 @@ jQuery(document).ready(function($) {
             if (!submenu) return;
             parentLi.classList.toggle("active");
             submenu.style.display = "block";
-            const isExpanded = submenu.classList.contains("in");
-            submenu.setAttribute("aria-expanded", isExpanded);
-            submenu.style.height = isExpanded ? submenu.scrollHeight + "px" : "0px";
         });
     });
 });
