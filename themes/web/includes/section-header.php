@@ -4,11 +4,11 @@
             <div class="wraper">
                 <div class="container">
                     <div class="search-form-inner">
-                        <form action="<?php bloginfo('url'); ?>" method= "get" role="form" class="search-form">
+                        <form action="<?php bloginfo('url'); ?>"  name="form_search" method="get" id="form_search" role="form">
                             <div class="form-group">
                                  <label>Nhập từ khóa tìm kiếm</label>
                                  <div class="input-group">
-                                    <input type="hidden" name="post_type" value="<?php echo get_post_type(); ?>">
+                                    <input type="hidden" name="post_type" value="any">
                                     <input type="text" class= "form-control" name="s" maxlength="60" placeholder="Tìm...">
                                     <div class="input-group-addon">
                                         <button class= "btn btn-primary">
@@ -79,9 +79,44 @@
                     <div class="right-top">
                         <div class="menu_topright">
                             <ul>
-                                <li><a href="">Lịch công tác</a></li>
-                                <li><a href="" title= "Thư viện ảnh" >Thư viện ảnh</a></li>
-                                <li><a href="" title= "Video">Video</a></li>
+                                <?php
+                                // Tính tuần và năm hiện tại
+                                $now = new DateTime();
+                                $tuan = (int) $now->format('W');
+                                $nam  = (int) $now->format('o');
+
+                                // Tìm bài viết workcalendar ứng với tuần/năm hiện tại
+                                $args = [
+                                    'post_type'      => 'workcalendar',
+                                    'posts_per_page' => 1,
+                                    'meta_query'     => [
+                                        [
+                                            'key'     => 'số_tuần',
+                                            'value'   => $tuan,
+                                            'compare' => '=',
+                                            'type'    => 'NUMERIC',
+                                        ],
+                                        [
+                                            'key'     => 'nam',
+                                            'value'   => $nam,
+                                            'compare' => '=',
+                                            'type'    => 'NUMERIC',
+                                        ],
+                                    ],
+                                ];
+
+                                $query = new WP_Query($args);
+                                $link = '#'; // mặc định nếu không tìm thấy bài
+
+                                if ($query->have_posts()) {
+                                    $query->the_post();
+                                    $link = get_permalink();
+                                    wp_reset_postdata();
+                                }
+                                ?>
+                                <li><a href="<?= esc_url($link); ?>">Lịch công tác</a></li>
+                                <li><a href="<?php the_permalink(781)?>" title= "Thư viện ảnh" >Thư viện ảnh</a></li>
+                                <li><a href="<?php the_permalink(769)?>" title= "Video">Video</a></li>
                             </ul>
                         </div>
                     </div>

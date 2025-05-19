@@ -103,6 +103,16 @@ $search_keyword = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
 $search_logic = isset($_GET['l']) && $_GET['l'] == '0' ? 'OR' : 'AND';
 $current_post_type = isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : 'any';
 $limit = ($current_post_type === 'any') ? 4 : 7;
+$paged = 1;
+if (get_query_var('paged')) {
+    $paged = get_query_var('paged');
+} elseif (get_query_var('page')) {
+    $paged = get_query_var('page');
+} elseif (isset($_GET['paged'])) {
+    $paged = intval($_GET['paged']);
+}
+
+
 if (mb_strlen($search_keyword) >= 3) {
     $post_types_to_search = [];
  if ($current_post_type === 'any') {
@@ -117,8 +127,6 @@ if (mb_strlen($search_keyword) >= 3) {
           $pt_obj = get_post_type_object($pt_name);
         if (!$pt_obj) continue;
        $keywords = explode(' ', $search_keyword);
-  $paged = isset($_GET['paged']) ? intval($_GET['paged']) : 1;
-
 $args = [
     'post_type' => $pt_name,
     'posts_per_page' =>$limit,
@@ -167,7 +175,7 @@ if ($search_logic === 'OR') {
         <a href="<?php echo esc_url( add_query_arg([
             's' => $search_keyword,
             'post_type' => $pt_name,
-            'l' => $search_logic === 'OR' ? '0' : '1'
+            'l' => $search_logic === 'OR' ? '0' : '1',
         ]) ); ?>">
             <em class="fa fa-thumb-tack">&nbsp;</em> Xem tất cả
         </a>
@@ -175,7 +183,6 @@ if ($search_logic === 'OR') {
     <?php endif; ?>
 </ul>
 
-            <div class="row">
                 <?php
             while ($query->have_posts()) {
                 $query->the_post();
@@ -258,32 +265,29 @@ echo $highlighted;
 <?php
             }
             ?>
-                </div>
-                <?php if ($current_post_type !== 'any'): ?>
-                <div class="text-center">
-                    <?php
-                echo paginate_links([
-    'total' => $query->max_num_pages,
-    'current' => $paged,
-    'base' => add_query_arg('paged', '%#%'),
-    'format' => '',
-    'add_args' => [
-        's' => $search_keyword,
-        'post_type' => $pt_name,
-        'l' => $search_logic === 'OR' ? '0' : '1',
-    ],
-    'prev_text' => '&laquo;',
-    'next_text' => '&raquo;',
-]);
 
-                    ?>
-                </div>
-                <?php endif; ?>
-            <?php
+                <?php if ($current_post_type !== 'any'): ?>
+                    <?php endif; ?>
+                    <?php
          
         }
-
+        
         wp_reset_postdata();
+if ($query->max_num_pages > 1) {
+    echo '<div class="text-center">';
+    $current_url = remove_query_arg('paged');
+    $base_url = add_query_arg('paged', '%#%', $current_url);
+    
+    echo paginate_links(array(
+        'base' => $base_url,
+        'format' => '',
+        'current' => max(1, $paged),
+        'total' => $query->max_num_pages,
+        'prev_text' => '&laquo;',
+        'next_text' => '&raquo;'
+    ));
+    echo '</div>';
+}
     }
 } else {
     echo '<span class="red">Bạn cần nhập từ khóa tìm kiếm có số ký tự tối thiểu là 3</span>';

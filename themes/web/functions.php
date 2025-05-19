@@ -41,6 +41,9 @@ function tuyensinh_css () {
 function nghiencuu_css () {
     wp_enqueue_style( "nghiencuu_css",  get_template_directory_uri(). '/css/nghiencuu.css', array(),"1.0.0", "all" );
 }
+function lichcongtac_css () {
+    wp_enqueue_style( "lichcongtac_css",  get_template_directory_uri(). '/css/lichcongtac.css', array(),"1.0.0", "all" );
+}
 function enqueue_slick_slider() {
     wp_enqueue_style('slick-css', get_template_directory_uri() . '/css/slick.css');
     wp_enqueue_style('slick-theme', get_template_directory_uri() . '/css/slick-theme.css');
@@ -148,6 +151,7 @@ add_action( "wp_enqueue_scripts", "tintuc_css" );
 add_action( "wp_enqueue_scripts", "daotao_css" );
 add_action( "wp_enqueue_scripts", "tuyensinh_css" );
 add_action( "wp_enqueue_scripts", "nghiencuu_css" );
+add_action( "wp_enqueue_scripts", "lichcongtac_css" );
 add_action('after_setup_theme', function() {
     add_theme_support('post-thumbnails');
 });
@@ -199,6 +203,79 @@ function remove_nav_menu_li_class($classes, $item, $args) {
 }
 
 add_filter('nav_menu_item_id', '__return_null');
+
+function fix_search_pagination($redirect_url) {
+    if (is_search()) {
+        $redirect_url = remove_query_arg('page', $redirect_url);
+    }
+    return $redirect_url;
+}
+add_filter('redirect_canonical', 'fix_search_pagination');
+function fix_search_url_parameters($url) {
+    // Remove duplicate parameters
+    $url = remove_query_arg(['#038;s', '#038;l'], $url);
+    return $url;
+}
+add_filter('get_pagenum_link', 'fix_search_url_parameters');
+function remove_editor_for_specific_page() {
+    // ID của trang bạn muốn tắt trình soạn thảo
+    $page_id = 562;
+
+    // Lấy màn hình hiện tại
+    $screen = get_current_screen();
+
+    if ( $screen->post_type === 'page' && isset($_GET['post']) && intval($_GET['post']) === $page_id ) {
+        remove_post_type_support('page', 'editor');
+    }
+}
+add_action('admin_head', 'remove_editor_for_specific_page');
+add_action('template_redirect', function () {
+    if (is_tax('lichcongtac')) {
+        $term = get_queried_object(); // lấy term hiện tại
+
+        if (!$term || is_wp_error($term)) return;
+        $now = new DateTime();
+        $tuan = (int) $now->format('W');
+        $nam  = (int) $now->format('o');
+
+        $args = [
+            'post_type'      => 'workcalendar',
+            'posts_per_page' => 1,
+            'meta_query'     => [
+                [
+                    'key'     => 'số_tuần',
+                    'value'   => $tuan,
+                    'compare' => '=',
+                    'type'    => 'NUMERIC',
+                ],
+                [
+                    'key'     => 'nam',
+                    'value'   => $nam,
+                    'compare' => '=',
+                    'type'    => 'NUMERIC',
+                ],
+            ],
+            'tax_query' => [
+                [
+                    'taxonomy' => 'lichcongtac',
+                    'field'    => 'term_id',
+                    'terms'    => $term->term_id,
+                ],
+            ],
+        ];
+
+        $query = new WP_Query($args);
+        if ($query->have_posts()) {
+            $query->the_post();
+            wp_redirect(get_permalink());
+            exit;
+        } else {
+            wp_redirect(home_url('/khong-tim-thay-lich-cong-tac/'));
+            exit;
+        }
+    }
+});
+
 
 ?>
 <?php

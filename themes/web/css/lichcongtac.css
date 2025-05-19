@@ -1,0 +1,66 @@
+.fa-4x {
+    font-size: 4em;
+}
+#contentwork h1 {
+    font-size: 22px;
+}
+#body .panel-default {
+    border-color: transparent;
+    background-color: #fffbfb;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+figure.image {
+    display: table;
+    clear: both;
+    text-align: center;
+    margin: 5px auto 10px auto;
+    min-width: 10px;
+}
+figure {
+    position: relative;
+    margin: 5px 0 10px 0;
+    text-align: center;
+}
+figure.image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    min-width: 100%;
+    height: auto;
+}
+figure.image > figcaption
+ {
+    display: table-caption;
+    caption-side: bottom;
+    word-break: break-word;
+    padding: 7px 7px 0 7px;
+    font-size: 13px;
+    outline-offset: -1px;
+    margin-top: 0;
+}
+figure figcaption {
+    font-size: 15px !important;
+}
+figure figcaption
+ {
+    font-size: 12px;
+    font-weight: normal;
+}
+figcaption {
+    text-align: center;
+    margin-top: 5px;
+    font-weight: 700;
+}
+#contentwork .week-des {
+    text-decoration: underline;
+}
+
+.m-bottom
+ {
+    margin-bottom: 10px !important;
+}
+#contentwork h3
+ {
+    font-size: 18px;
+}
