@@ -273,21 +273,6 @@ echo $highlighted;
         }
         
         wp_reset_postdata();
-if ($query->max_num_pages > 1) {
-    echo '<div class="text-center">';
-    $current_url = remove_query_arg('paged');
-    $base_url = add_query_arg('paged', '%#%', $current_url);
-    
-    echo paginate_links(array(
-        'base' => $base_url,
-        'format' => '',
-        'current' => max(1, $paged),
-        'total' => $query->max_num_pages,
-        'prev_text' => '&laquo;',
-        'next_text' => '&raquo;'
-    ));
-    echo '</div>';
-}
     }
 } else {
     echo '<span class="red">Bạn cần nhập từ khóa tìm kiếm có số ký tự tối thiểu là 3</span>';

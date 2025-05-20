@@ -116,7 +116,7 @@
                                 ?>
                                 <li><a href="<?= esc_url($link); ?>">Lịch công tác</a></li>
                                 <li><a href="<?php the_permalink(781)?>" title= "Thư viện ảnh" >Thư viện ảnh</a></li>
-                                <li><a href="<?php the_permalink(769)?>" title= "Video">Video</a></li>
+                                <!-- <li><a href="<?php the_permalink(769)?>" title= "Video">Video</a></li> -->
                             </ul>
                         </div>
                     </div>
@@ -127,8 +127,8 @@
                     </div>
                     <div class="languages">
                         <div class="language">
-                            <a href="" class="active" title= "Tiếng việt" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/vi.png');"></a>
-                            <a href=""  title= "English" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/en.png');"></a>
+                            <!-- <a href="" class="active" title= "Tiếng việt" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/vi.png');"></a>
+                            <a href=""  title= "English" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/en.png');"></a> -->
 
                         </div>
                     </div>
