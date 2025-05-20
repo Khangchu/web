@@ -11,8 +11,23 @@
                                     <div class="breadcrumbs-wrap">
                                           <div class="display">
                                         <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
-                                        <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="<?php the_permalink(314)?>"><span>Khoa-Trung tâm<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_2">
-                                           <a href="<?php the_permalink( )?>"><span><?php the_title()?><i class="fa fa-lg fa-angle-right"></i></span></a>
+                                        <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="<?php the_permalink(259)?>"><span>Nghiên cứu<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_2">
+                                                                     <?php
+                                            $post_id = get_the_ID();
+                                            $terms = get_the_terms($post_id, 'nghiencuu');
+                                            
+                                            if (!empty($terms) && !is_wp_error($terms)) {
+
+                                                foreach ($terms as $term) {
+                                                    $term_link = get_term_link( $term )
+                                                    ?>
+                                                    <a href="<?php echo esc_url( $term_link )?>"><span><?php echo $term->name?><i class="fa fa-lg fa-angle-right"></i></span></a>
+                                                    <?php
+                                                }
+                                            } else {
+                                                echo 'Bài viết này không có tag nào trong taxonomy này.';
+                                            }
+                                            ?>
                                         </li></ul>
                                     </div>
                                     </div>
@@ -81,90 +96,59 @@
                             </div>
                         </div>
                             </div>
-      <div class="col-sm-8 col-md-6 col-sm-pull-16 col-md-pull-18 css-left">
+<div class="col-sm-8 col-md-6 col-sm-pull-16 col-md-pull-18 css-left">
     <div class="clearfix metismenu custom-metis">
         <aside class="sidebar">
             <nav class="sidebar-nav">
                 <ul id="menu_65">
                     <li class="active">
-                        <a title="Khoa - Trung tâm" href="/vi/khoa-trung-tam/">Khoa - Trung tâm</a>
-                        <span class="fa arrow expand" style="margin-top: -36px;"></span>
-                        <ul class="collapse in" aria-expanded='false'>
-    <?php
-    $terms = get_terms([
-        'taxonomy' => 'khoatrungtam',
-        'hide_empty' => false,
-        'parent' => 0 
-    ]);
+                        <ul class="collapse in">
+                            <?php
+                            $terms = get_terms([
+                                'taxonomy' => 'nghiencuu',
+                                'hide_empty' => false,
+                                'parent' => 0 
+                            ]);
 
-    if (!empty($terms) && !is_wp_error($terms)) {
-        foreach ($terms as $term) {
-            $term_link = get_term_link($term);
-            $child_terms = get_terms([
-                'taxonomy' => 'khoatrungtam',
-                'hide_empty' => false,
-                'parent' => $term->term_id
-            ]);
+                            if (!empty($terms) && !is_wp_error($terms)) {
+                                foreach ($terms as $term) {
+                                    $term_link = get_term_link($term);
+                                    $child_terms = get_terms([
+                                        'taxonomy' => 'nghiencuu',
+                                        'hide_empty' => false,
+                                        'parent' => $term->term_id
+                                    ]);
 
-            $check_args = [
-                'post_type' => 'center-department',
-                'posts_per_page' => 5,
-                'orderby' => 'date',
-                'order' => 'ASC',
-                'tax_query' => [
-                    [
-                        'taxonomy' => 'khoatrungtam',
-                        'field' => 'term_id',
-                        'terms' => $term->term_id,
-                        'include_children' => false,
-                    ],
-                ],
-            ];
-            $query = new WP_Query($check_args);
-            $has_posts = $query->have_posts();
-            $li_class = 'custom-metis-sub-item';
-            ?>
-            <li class="<?php echo esc_attr($li_class); ?>">
-                <a id="height-a" title="<?php echo esc_attr($term->name); ?>" href="<?php echo esc_url($term_link); ?>" class="sf-with-ul">
-                            <?php 
-                    if ($term->name === 'Trung tâm Đào tạo thực hành Điện – Điện tử') {
-                        echo 'TTĐTTH Điện – Điện tử';
-                    } else {
-                        echo esc_html($term->name);
-                    }
-                    ?>
-                </a>
-                <?php if (!empty($child_terms) || $has_posts) { ?>
-                    <span id="span-id" class="fa arrow expand" style="margin-top: -36px;"></span>
-                    <ul class="collapse">
-                        <?php
-                        while ($query->have_posts()) {
-                            $query->the_post(); ?>
-                            <li class="custom-metis-sub-item">
-                                <a id="height-a" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" class="sf-with-ul">
-                                    <?php the_title(); ?>
-                                </a>
-                            </li>
-                        <?php }
-                        wp_reset_postdata(); ?>
-
-                        <?php foreach ($child_terms as $child) {
-                            $child_link = get_term_link($child); ?>
-                            <li class="custom-metis-sub-item">
-                                <a id="height-a" title="Nhóm Chuyên môn" href="<?php echo esc_url($child_link); ?>" class="sf-with-ul">
-                                    Nhóm Chuyên môn
-                                </a>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                <?php } ?>
-            </li>
-            <?php
-        }
-    }
-    ?>
-</ul>
-
+                                    $li_class = 'custom-metis-sub-item';
+                                    if (!empty($child_terms)) {
+                                        $li_class .= ' active_sub';
+                                    }
+                                    ?>
+                                    <li class="<?php echo esc_attr($li_class); ?>">
+                                        <a id="height-a" title="<?php echo esc_attr($term->name); ?>" href="<?php echo esc_url($term_link); ?>" class="sf-with-ul">
+                                            <?php echo esc_html($term->name); ?>
+                                        </a>
+                                        <?php if (!empty($child_terms)) { ?>
+                                            <span id="span-id" class="fa arrow expand" style="margin-top: -52px;"></span>
+                                            <ul class="collapse">
+                                                <?php foreach ($child_terms as $child) {
+                                                    $child_link = get_term_link($child); ?>
+                                                    <li class="custom-metis-sub-item">
+                                                        <a id="height-a" title="<?php echo esc_attr($child->name); ?>" href="<?php echo esc_url($child_link); ?>" class="sf-with-ul">
+                                                            <?php echo esc_html($child->name); ?>
+                                                        </a>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+                                        <?php } ?>
+                                    </li>
+                                    <?php
+                                }
+                            } else {
+                                echo '<li>Không có chuyên mục nào trong taxonomy này.</li>';
+                            }
+                            ?>
+                        </ul>
                     </li>
                 </ul>
             </nav>
@@ -178,4 +162,24 @@
         </section>
     </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const arrows = document.querySelectorAll(".arrow.expand");
+
+    arrows.forEach(arrow => {
+        arrow.addEventListener("click", function (e) {
+            e.preventDefault();
+            const parentLi = this.closest("li");
+            const submenu = parentLi.querySelector("ul.collapse");
+            if (!submenu) return;
+            parentLi.classList.toggle("active");
+            submenu.classList.toggle("in");
+            const isExpanded = submenu.classList.contains("in");
+            submenu.setAttribute("aria-expanded", isExpanded);
+            submenu.style.height = isExpanded ? submenu.scrollHeight + "px" : "0px";
+        });
+    });
+});
+
+</script>
 <?php get_footer('footer') ?>

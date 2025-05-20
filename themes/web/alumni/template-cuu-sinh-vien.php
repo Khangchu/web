@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Hợp tác và hỗ trợ
+Template Name:Cựu sinh viên
 */
 ?>
 <?php get_header("v2")?>
@@ -30,7 +30,7 @@ Template Name: Hợp tác và hỗ trợ
                                                 </li>
                                                 <li id="brcr_1">
                                                     <a href="<?php the_permalink() ?>">
-                                                        <span>Hợp tác và hỗ trợ<i class="fa fa-lg fa-angle-right"></i></span>
+                                                        <span>Cựu Sinh viên<i class="fa fa-lg fa-angle-right"></i></span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -58,7 +58,7 @@ Template Name: Hợp tác và hỗ trợ
             <div class="bg-content bg-content-daotao">
                 <div class="bg-wraper wraper">
                      <?php
-                    $term = get_term_by('id', 55, 'hoptacvahotro');
+                    $term = get_term_by('id', 68, 'cuusinhvien');
                     ?>
                     <div class="content_flex hidden-desktop-h2">
                     <h2 class="text-center">
@@ -68,8 +68,8 @@ Template Name: Hợp tác và hỗ trợ
                     <div>
                         <div class="ds-grid pd-bottom">
                             <div class="imgae-flex">
-                            <?php if( get_field('hợp_tac_dao_tạo') ) { ?> 
-                            <img src="<?php  echo get_field('hợp_tac_dao_tạo')['url']  ?>">
+                            <?php if( get_field('ban_lien_lạc_cựu_sinh_vien') ) { ?> 
+                            <img src="<?php  echo get_field('ban_lien_lạc_cựu_sinh_vien')['url']  ?>">
                             <?php } ?>
                             </div>
                             <div class="content_flex content-flex-white">
@@ -87,7 +87,7 @@ Template Name: Hợp tác và hỗ trợ
                 </div>
                 <div class="bg-wraper wraper">
                       <?php
-                    $term = get_term_by('id', 56, 'hoptacvahotro');
+                    $term = get_term_by('id', 69, 'cuusinhvien');
                     ?>
                     <div class="content_flex hidden-desktop-h2">
                     <h2 class="text-center">
@@ -109,8 +109,8 @@ Template Name: Hợp tác và hỗ trợ
                                     </div>
                                 </div>
                                  <div class="imgae-flex">
-                            <?php if( get_field('hợp_tac_nghien_cứu') ) { ?> 
-                            <img src="<?php  echo get_field('hợp_tac_nghien_cứu')['url']  ?>">
+                            <?php if( get_field('cựu_sinh_vien_tieu_biểu') ) { ?> 
+                            <img src="<?php  echo get_field('cựu_sinh_vien_tieu_biểu')['url']  ?>">
                             <?php } ?>
                             </div>
                             </div>
@@ -119,7 +119,7 @@ Template Name: Hợp tác và hỗ trợ
                 </div>
                 <div class="bg-wraper wraper">
                          <?php
-                    $term = get_term_by('id', 54, 'hoptacvahotro');
+                    $term = get_term_by('id', 67, 'cuusinhvien');
                     ?>
                     <div class="content_flex hidden-desktop-h2">
                     <h2 class="text-center">
@@ -129,8 +129,8 @@ Template Name: Hợp tác và hỗ trợ
                     <div>
                         <div class="ds-grid pd-bottom">
                             <div class="imgae-flex">
-                            <?php if( get_field('mạng_luới_dối_tac') ) { ?> 
-                            <img src="<?php  echo get_field('mạng_luới_dối_tac')['url']  ?>">
+                            <?php if( get_field('tai_trợ_từ_cựu_sinh_vien') ) { ?> 
+                            <img src="<?php  echo get_field('tai_trợ_từ_cựu_sinh_vien')['url']  ?>">
                             <?php } ?>
                             </div>
                             <div class="content_flex content-flex-white">
@@ -155,15 +155,12 @@ Template Name: Hợp tác và hỗ trợ
             <nav class="sidebar-nav">
                 <ul id="menu_65">
                     <li class="active">
-                        <a title="Hợp tác và hỗ trợ" href="/vi/khoa-trung-tam/">Hợp tác và hỗ trợ</a>
+                        <a title="sinh viên" href="/vi/khoa-trung-tam/">sinh viên</a>
                         <span class="fa arrow expand" style="margin-top: -36px;"></span>
                         <ul class="collapse in" aria-expanded='false'style="height: 0px;">
-                            <li class="custom-metis-sub-item  ">
-    <a id="height-a" title="<?php echo get_the_title(411) ?>" href="<?php the_permalink(411) ?>" class="sf-with-ul"><?php echo get_the_title(411) ?></a>
-                            </li>
     <?php
     $terms = get_terms([
-        'taxonomy' => 'hoptacvahotro',
+        'taxonomy' => 'cuusinhvien',
         'hide_empty' => false,
         'parent' => 0 
     ]);

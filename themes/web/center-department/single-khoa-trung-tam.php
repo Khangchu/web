@@ -193,4 +193,24 @@
         </section>
     </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const arrows = document.querySelectorAll(".arrow.expand");
+
+    arrows.forEach(arrow => {
+        arrow.addEventListener("click", function (e) {
+            e.preventDefault();
+            const parentLi = this.closest("li");
+            const submenu = parentLi.querySelector("ul.collapse");
+            if (!submenu) return;
+            parentLi.classList.toggle("active");
+            submenu.classList.toggle("in");
+            const isExpanded = submenu.classList.contains("in");
+            submenu.setAttribute("aria-expanded", isExpanded);
+            submenu.style.height = isExpanded ? submenu.scrollHeight + "px" : "0px";
+        });
+    });
+});
+
+</script>
 <?php get_footer('footer') ?>

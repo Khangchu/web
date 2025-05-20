@@ -116,7 +116,7 @@
                                 ?>
                                 <li><a href="<?= esc_url($link); ?>">Lịch công tác</a></li>
                                 <li><a href="<?php the_permalink(781)?>" title= "Thư viện ảnh" >Thư viện ảnh</a></li>
-                                <!-- <li><a href="<?php the_permalink(769)?>" title= "Video">Video</a></li> -->
+                                <li><a href="<?php the_permalink(769)?>" title= "Video">Video</a></li>
                             </ul>
                         </div>
                     </div>

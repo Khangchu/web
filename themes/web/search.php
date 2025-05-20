@@ -102,7 +102,7 @@ $l_value = isset($_GET['l']) ? $_GET['l'] : '1';
 $search_keyword = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
 $search_logic = isset($_GET['l']) && $_GET['l'] == '0' ? 'OR' : 'AND';
 $current_post_type = isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : 'any';
-$limit = ($current_post_type === 'any') ? 4 : 7;
+$limit = ($current_post_type === 'any') ? 4 : -1;
 $paged = 1;
 if (get_query_var('paged')) {
     $paged = get_query_var('paged');

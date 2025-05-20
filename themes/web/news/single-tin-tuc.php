@@ -1,3 +1,4 @@
+<?php get_header("v2")?>
 <div class="section-body">
     <div>
         <section>
@@ -255,3 +256,5 @@
     </div>
    </div>
 
+
+<?php get_footer('footer') ?>

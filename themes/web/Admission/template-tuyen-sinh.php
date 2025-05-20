@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: tuyển sinh 
+Template Name: Tuyển sinh 
 */
 ?>
 <?php get_header("v2")?>

@@ -4,11 +4,12 @@
             <div class="wraper">
                 <div class="container">
                     <div class="search-form-inner">
-                        <form action="/seek/" method= "get">
+                            <form action="<?php bloginfo('url'); ?>"  name="form_search" method="get" id="form_search" role="form">
                             <div class="form-group">
                                  <label>Nhập từ khóa tìm kiếm</label>
                                  <div class="input-group">
-                                    <input type="text" class= "form-control" name="q" maxlength="60" placeholder="Tìm...">
+                                    <input type="hidden" name="post_type" value="any">
+                                    <input type="text" class= "form-control" name="s" maxlength="60" placeholder="Tìm...">
                                     <div class="input-group-addon">
                                         <button class= "btn btn-primary">
                                             <i class="fa fa-search fa-flip-horizontal" aria-hidden="true"></i>
@@ -27,9 +28,9 @@
                     <div class="logo">
                         <div class="test-site">
                             <a href="/index.php" title ="Trường Điện - Điện tử">
-                                <?php if (get_field('logo')) { ?>
-                                <img src=" <?php echo get_field('logo')['url']?>" alt="Trường Điện - Điện tử">
-                                <?php } ?></a>
+                                
+                                <img src='<?php echo get_template_directory_uri(); ?>/img/logo-dhbk-1-02_130_191 (1).png' alt="Trường Điện - Điện tử">
+                                </a>
                             <ul class="text-sologan">
                                 <li class="bo">
                                     <a href="/index.php">Đại học Bách khoa Hà Nội</a>
@@ -43,10 +44,45 @@
                     </div>
                     <div class="right-top">
                         <div class="menu_topright">
-                            <ul>
-                                <li><a href="">Lịch công tác</a></li>
-                                <li><a href="" title= "Thư viện ảnh" >Thư viện ảnh</a></li>
-                                <li><a href="" title= "Video">Video</a></li>
+                          <ul>
+                                <?php
+                                // Tính tuần và năm hiện tại
+                                $now = new DateTime();
+                                $tuan = (int) $now->format('W');
+                                $nam  = (int) $now->format('o');
+
+                                // Tìm bài viết workcalendar ứng với tuần/năm hiện tại
+                                $args = [
+                                    'post_type'      => 'workcalendar',
+                                    'posts_per_page' => 1,
+                                    'meta_query'     => [
+                                        [
+                                            'key'     => 'số_tuần',
+                                            'value'   => $tuan,
+                                            'compare' => '=',
+                                            'type'    => 'NUMERIC',
+                                        ],
+                                        [
+                                            'key'     => 'nam',
+                                            'value'   => $nam,
+                                            'compare' => '=',
+                                            'type'    => 'NUMERIC',
+                                        ],
+                                    ],
+                                ];
+
+                                $query = new WP_Query($args);
+                                $link = '#'; // mặc định nếu không tìm thấy bài
+
+                                if ($query->have_posts()) {
+                                    $query->the_post();
+                                    $link = get_permalink();
+                                    wp_reset_postdata();
+                                }
+                                ?>
+                                <li><a href="<?= esc_url($link); ?>">Lịch công tác</a></li>
+                                <li><a href="<?php the_permalink(781)?>" title= "Thư viện ảnh" >Thư viện ảnh</a></li>
+                                <li><a href="<?php the_permalink(769)?>" title= "Video">Video</a></li>
                             </ul>
                         </div>
                     </div>

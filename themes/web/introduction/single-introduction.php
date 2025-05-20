@@ -1,8 +1,4 @@
-<?php
-/*
-Template Name: Gioi Thieu
-*/
-?>
+
 <?php get_header("v2")?>
 <div class="section-body">
     <div>
@@ -29,19 +25,55 @@ Template Name: Gioi Thieu
                 <div class="row wraper">
                     <div class="col-sm-16 col-md-18 col-sm-push-8 col-md-push-6">
                         <div class="page panel panel-default" itemtype="http://schema.org/Article" itemscope>
-                            <?php get_template_part('includes/section','gioithieu')?>
+
+<div class="panel-body css-panel-body">
+    	<h1 class="title margin-bottom-lg hidden-desktop color-h1-red" itemprop="headline"><?php the_title()?></h1>
+        <div class="hidden hide d-none" itemprop="author" itemtype="http://schema.org/Organization" itemscope="">
+            <span itemprop="name">Trường Điện - Điện tử</span>
+        </div>
+        <span class="hidden hide d-none" itemprop="datePublished"><?=get_the_date('d/m/Y h:i:s') ?></span>
+        <span class="hidden hide d-none" itemprop="dateModified"><?=get_the_date('d/m/Y h:i:s') ?></span>
+        <span class="hidden hide d-none" itemprop="mainEntityOfPage"><?php the_permalink()?></span>
+        <span class="hidden hide d-none" itemprop="image">/themes/smse/images/no_image.gif</span>
+        <div class="hidden hide d-none" itemprop="publisher" itemtype="http://schema.org/Organization" itemscope="">
+            <span itemprop="name">Trường Điện - Điện tử</span>
+            <span itemprop="logo" itemtype="http://schema.org/ImageObject" itemscope="">
+                <span itemprop="url">https://seee.hust.edu.vn/uploads/seee/logo-dhbk-1-02_130_191.png</span>
+            </span>
+        </div>
+		<div class="clear"></div>
+
+        <?php
+if(have_posts(  )){
+    while(have_posts()) {
+        the_post();
+        ?>
+		<div class="css-page">
+			<div id="page-bodyhtml" class="bodytext margin-bottom-lg">
+			 	<h1 class="title margin-bottom-lg hidden-mobile color-h1-red" itemprop="headline"><?php the_title()?></h1>
+                 <?php
+                    $noi_dung = get_the_content();
+                    $noi_dung = preg_replace('/<p([^>]*)>/', '<p class="custom-class"$1 style="text-align: justify;">', $noi_dung);
+                    echo $noi_dung;
+                    ?>
+		    	<p style="text-align: justify;"></p>
+                <p>&nbsp;</p>
+		 	</div>
+	 	</div>
+<?php 
+    }
+}
+?>
+    </div>
                         </div>
                         <div class="page panel panel-default">
                             <div class="panel-body">
                                 <ul class="nv-list-item">
                                     <?php
-                                    $template_name = 'template/template-gioi-thieu.php';
                                     $args = [
-                                        'post_type' => 'page',
-                                        'post__in'=> [59,43,61,66,98],
-                                        'meta_key' => '_wp_page_template',
-                                        'meta_value' => $template_name,
-                                        'posts_per_page' => -1,
+                                        'post_type' => 'introduction',
+                                        'post__not_in' => [517,507],
+                                        'posts_per_page' => 5,
                                     ];
                                     
                                     $query = new WP_Query($args);
@@ -70,17 +102,14 @@ Template Name: Gioi Thieu
                                 <nav class="sidebar-nav">
                                     <ul class="menu_56">
                                         <li class="current">
-                                            <a href="<?php the_permalink(32)?>" title ="<?php echo get_the_title(32)?>"><?php echo get_the_title(32)?></a>
+                                            <a href="<?php the_permalink(517)?>" title ="<?php echo get_the_title(517)?>"><?php echo get_the_title(517)?></a>
                                             <span class="fa arrow expand" style="margin-top: -36px;"></span>
                                             <ul class="collapse" aria-expanded="false" style="height: 0px;">
                                             <?php
-                                    $template_name = 'template/template-gioi-thieu.php';
                                     $args = [
-                                        'post_type' => 'page',
-                                        'post__not_in' => [32,43],
-                                        'post__in' => [57,59,41,47,39],
-                                        'meta_key' => '_wp_page_template',
-                                        'meta_value' => $template_name,
+                                        'post_type' => 'introduction',
+                                        'post__not_in' => [517,507],
+                                        'post__in' => [529,531,505,513,501],
                                         'posts_per_page' => -1,
                                     ];
                                     
@@ -102,17 +131,14 @@ Template Name: Gioi Thieu
                                             </ul>
                                         </li>
                                         <li class="">
-                                            <a href="<?php the_permalink(43)?>" title= "<?php echo get_the_title(43)?>"><?php echo get_the_title(43)?></a>
+                                            <a href="<?php the_permalink(507)?>" title= "<?php echo get_the_title(507)?>"><?php echo get_the_title(507)?></a>
                                             <span class="fa arrow expand" style="margin-top: -36px;"></span>
                                             <ul class="collapse" aria-expanded="false" style="height: 0px;">
                                             <?php
-                                    $template_name = 'template/template-gioi-thieu.php';
                                     $args = [
-                                        'post_type' => 'page',
-                                        'post__not_in' => [32,43],
-                                        'post__in' => [45,43,34,55,61,66,51],
-                                        'meta_key' => '_wp_page_template',
-                                        'meta_value' => $template_name,
+                                        'post_type' => 'introduction',
+                                       'post__not_in' => [517,507],
+                                        'post__in' => [511,521,499,523,533,503,515],
                                         'posts_per_page' => -1,
                                     ];
                                     

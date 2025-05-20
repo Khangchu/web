@@ -158,7 +158,6 @@
                                         <li class="active">
                                             <ul class="collapse in">
                                             <?php
-                                                $template_name = 'template/template-dao-tao.php';
                                                   $args = [
                                                         'post_type' => 'training',
                                                            'post__in' => [153,167,169,171,173,178],

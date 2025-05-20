@@ -1,20 +1,20 @@
-
+<?php get_header("v2")?>
 <div class="section-body">
     <div>
         <section>
-            <div class="container dao-tao" id="body">
+            <div class="container news" id="body">
                 <nav class="third-nav wraper">
                     <div class="row">
                         <div class="bg">
-                            <div class="clearfix">
-                                <div class="col-xs-24 col-sm-18 col-md-18">
-                                    <div class="breadcrumbs-wrap">
-                                          <div class="display">
+                        <div class="clearfix">
+                            <div class="col-xs-24 col-sm-18 col-md-18">
+                                                                    <div class="breadcrumbs-wrap">
+                                    <div class="display">
                                         <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
-                                        <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="<?php the_permalink(135)?>"><span>Đào tạo<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_2">
-                                                                     <?php
+                                        <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="<?php the_permalink(236)?>"><span>Tuyển sinh<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_2">
+                                            <?php
                                             $post_id = get_the_ID();
-                                            $terms = get_the_terms($post_id, 'daotao');
+                                            $terms = get_the_terms($post_id, 'tuyensinh');
                                             
                                             if (!empty($terms) && !is_wp_error($terms)) {
 
@@ -30,20 +30,26 @@
                                             ?>
                                         </li></ul>
                                     </div>
-                                    </div>
+                                    <ul class="subs-breadcrumbs"></ul>
+                                    <ul class="temp-breadcrumbs hidden" itemscope="" itemtype="https://schema.org/BreadcrumbList">
+                                        <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><a href="https://seee.hust.edu.vn/vi/" itemprop="item" title="Trang chủ"><span itemprop="name">Trang chủ</span></a><i class="hidden" itemprop="position" content="1"></i></li>
+                                        <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><a href="https://seee.hust.edu.vn/vi/news/" itemprop="item" title="Tin Tức"><span class="txt" itemprop="name">Tin Tức</span></a><i class="hidden" itemprop="position" content="2"></i></li><li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><a href="https://seee.hust.edu.vn/vi/news/dao-tao/" itemprop="item" title="Đào tạo"><span class="txt" itemprop="name">Đào tạo</span></a><i class="hidden" itemprop="position" content="3"></i></li>
+                                    </ul>
                                 </div>
-                                <div class="headerSearch hidden col-xs-24 col-sm-6 col-md-6">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" maxlength="60" placeholder="Tìm kiếm..."><span class="input-group-btn"><button type="button" class="btn btn-info" data-url="/vi/seek/?q=" data-minlength="3" data-click="y"><em class="fa fa-search fa-lg"></em></button></span>
-                                    </div>
+                            </div>
+                            <div class="headerSearch hidden col-xs-24 col-sm-6 col-md-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" maxlength="60" placeholder="Tìm kiếm..."><span class="input-group-btn"><button type="button" class="btn btn-info" data-url="/vi/seek/?q=" data-minlength="3" data-click="y"><em class="fa fa-search fa-lg"></em></button></span>
                                 </div>
                             </div>
                         </div>
+                        </div>
                     </div>
                 </nav>
-                <div class="row"></div>
+                <div class="row">      
+                </div>
                 <div class="row wraper">
-                     <div class="col-sm-16 col-md-18 col-sm-push-8 col-md-push-6">
+                    <div class="col-sm-16 col-md-18 col-sm-push-8 col-md-push-6">
                         <div class="news_column panel panel-default" itemtype="http://schema.org/NewsArticle" itemscope="">
                             <div class="panel-body">
                                 <h1 class="title margin-bottom-lg" itemprop="headline"><?php the_title()?></h1>
@@ -96,7 +102,7 @@
                             </div>
                         </div>
                             </div>
-                    <div class="col-sm-8 col-md-6 col-sm-pull-16 col-md-pull-18 css-left">
+                            <div class="col-sm-8 col-md-6 col-sm-pull-16 col-md-pull-18 css-left">
                         <div class="clearfix metismenu custom-metis">
                             <aside class="sidebar">
                                 <nav class="sidebar-nav">
@@ -104,25 +110,52 @@
                                         <li class="active">
                                             <ul class="collapse in">
                                                 <?php
-                                                  $args = [
-                                                        'post_type' => 'training',
-                                                           'post__in' => [153,167,169,171,173,178],
-                                                           'orderby' => 'post__in',
-                                                    ];
-                                                     $query = new WP_Query($args);
-                                                        if ($query->have_posts()) {
-                                                            while ($query->have_posts()) {
-                                                                $query->the_post();
-                                                                ?>
-                                                                <li class="custom-metis-sub-item ">
-                                                                <a id="height-a" title="<?php echo get_the_title() ?>" href="<?php echo get_permalink()?>" class="sf-with-ul"><?php echo get_the_title() ?></a>
-                                                                </li>
-                                                            <?php
-                                                            }
-                                                            wp_reset_postdata();
-                                                        } else {
-                                                            echo 'Không có trang nào dùng template này.';
+                                                $terms = get_terms([
+                                                    'taxonomy' => 'tuyensinh',
+                                                    'hide_empty' => false,
+                                                ]);
+
+                                                if (!empty($terms) && !is_wp_error($terms)) {
+                                                    foreach ($terms as $term) {
+                                                        $term_link = get_term_link($term);
+
+                                                        $check_args = [
+                                                            'post_type' => 'admissions',
+                                                            'posts_per_page' => 5,
+                                                            'tax_query' => [
+                                                                [
+                                                                    'taxonomy' => 'tuyensinh',
+                                                                    'field' => 'slug',
+                                                                    'terms' => $term->slug,
+                                                                ],
+                                                            ],
+                                                        ];
+
+                                                        $term_query = new WP_Query($check_args);
+                                                        $has_posts = $term_query->have_posts();
+
+                                                        $li_class = 'custom-metis-sub-item';
+                                                        if ($has_posts) {
+                                                            $li_class .= ' active_sub';
                                                         }
+                                                        ?>
+                                                        <li class="<?php echo esc_attr($li_class); ?>">
+                                                            <a id="height-a" title="<?php echo esc_attr($term->name); ?>" href="<?php echo esc_url($term_link); ?>" class="sf-with-ul">
+                                                                <?php echo esc_html($term->name); ?>
+                                                            </a>
+                                                            <?php if ($has_posts){ ?>
+                                                                <span id="span-id" class="fa arrow expand" style="margin-top: -52px;"></span>
+                                                                <ul class = "collapse">
+                                                                <?php echo do_shortcode('[list_tuyensinh slug="' . $term->slug . '"]'); ?>
+                                                                </ul>
+                                                            <?php } ?>
+                                                        </li>
+                                                        <?php
+                                                        wp_reset_postdata();
+                                                    }
+                                                } else {
+                                                    echo '<li>Không có chuyên mục nào trong taxonomy này.</li>';
+                                                }
                                                 ?>
                                             </ul>
                                         </li>
@@ -131,10 +164,31 @@
                             </aside>
                         </div>
                     </div>
-            </div>
-                </div>
                 <div class="row"></div>
             </div>
         </section>
     </div>
-</div>
+   </div>
+   <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const arrows = document.querySelectorAll(".arrow.expand");
+
+    arrows.forEach(arrow => {
+        arrow.addEventListener("click", function (e) {
+            e.preventDefault();
+            const parentLi = this.closest("li");
+            const submenu = parentLi.querySelector("ul.collapse");
+            if (!submenu) return;
+            parentLi.classList.toggle("active");
+            submenu.classList.toggle("in");
+            const isExpanded = submenu.classList.contains("in");
+            submenu.setAttribute("aria-expanded", isExpanded);
+            submenu.style.height = isExpanded ? submenu.scrollHeight + "px" : "0px";
+        });
+    });
+});
+
+</script>
+
+
+<?php get_footer('footer') ?>
