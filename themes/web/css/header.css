@@ -1171,10 +1171,10 @@ ul.slimmenu > li > a {
     max-width: 100%;
     padding: 1px;
 }
-iframe {
+/* iframe {
     height: 465px
     ;width:829.25px
-}
+} */
 .detailContent .videoplayer {
     background: #3f3f3f;
     position: relative;
