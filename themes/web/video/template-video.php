@@ -53,7 +53,7 @@ Template Name: Video
                                                     </h3>
                                                      <div class="text-muted">
                                                             <ul class="list-unstyled list-inline">
-                                                                <li><em class="fa fa-eye">&nbsp;</em> Đã xem: <?php echo function_exists('getPostViews') ? getPostViews(get_the_ID()) : '0'; ?></li>
+                                                                <li><em class="fa fa-eye">&nbsp;</em> Đã xem: <?php echo getPostViews(get_the_ID()); ?></li>
                                                             </ul>
                                                         </div>
                                                         

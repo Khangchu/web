@@ -1,4 +1,7 @@
 <?php 
+if (function_exists('setPostViews')) {
+    setPostViews(get_the_ID());
+}  
 $post_type = get_post_type();
 if($post_type === 'tin') {
     get_template_part('news/single', 'tin');

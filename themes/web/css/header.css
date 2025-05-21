@@ -1427,3 +1427,183 @@ ul.slimmenu > li > a {
 .pswp__error-msg a {
   color: #CCC;
   text-decoration: underline; }
+.menu-mobile li>ul li div i {
+    position: absolute;
+    right: 0px;
+    top: 4px;
+}
+.menu-mobile li>ul li div {
+    position: relative;
+}
+.menu-fixed.sticky {
+    position: fixed;
+    top: 0; /* hoặc top: 0px */
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    height: auto;
+    transition: all 0.5s ease;
+    animation: smoothScroll 0.5s forwards;
+}
+
+
+.second-nav {
+    z-index: 3;
+}
+.section-nav {
+    background-color: #fdfdfe;
+    box-shadow: 0 3px 3px 0 rgb(0 0 0 / 30%);
+    position: relative;
+    z-index: 5;
+}
+.home-header-nav {
+    box-shadow: none;
+}
+.home-header .section-header, .home-header-nav, .main-header ul.slimmenu {
+    background-color: transparent !important;
+}
+.videoInfo {
+    background: #fff;
+    position: relative;
+    border: 1px #d6d6d6 solid;
+    padding: 1px;
+}
+.marginbottom15 {
+    margin-bottom: 15px;
+}
+.videoInfo .cont {
+    background: #f1f1f1;
+    position: relative;
+    padding: 2px;
+}
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.videoInfo .cont .cont2 {
+    height: 56px;
+}
+.fl {
+    float: left;
+}
+.videoInfo .cont .fl {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+}
+.videoInfo .shareFeelings {
+    font: normal 11px Tahoma;
+    margin-bottom: 8px;
+    height: 12px;
+}
+.videoInfo a.likeButton {
+    display: inline-block;
+    background: #E1E1E1;
+    font: 700 12px / 30px Arial;
+    border: 1px #d6d6d6 solid;
+    padding: 0 10px;
+    text-decoration: none;
+    color: #5B5B5B;
+    margin-right: 2px;
+      &:hover {
+           background-color: white;
+    }
+}
+.videoInfo a.likeButton img.like {
+    background: transparent url(../img/like.png) no-repeat left top;
+    width: 15px;
+    height: 14px;
+    margin-right: 4px;
+}
+.videoInfo a.likeButton img.unlike {
+    background: transparent url(../img/like.png) no-repeat left -14px;
+    width: 15px;
+    height: 14px;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+.videoInfo a.likeButton img.broken {
+    background: transparent url(../img/like.png) no-repeat left -28px;
+    width: 15px;
+    height: 14px;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+.videoInfo .cont .fr {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    text-align: right;
+}
+.fr {
+    float: right;
+}
+.videoInfo div.viewcount {
+    position: relative;
+    font: normal 11px Tahoma;
+    color: #5B5B5B;
+    text-align: right;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+.videoInfo div.viewcount span {
+    font-weight: 700;
+}
+.videoInfo div.imageunlike {
+    background: #4491b2;
+}
+.videoInfo div.image {
+    width: 220px;
+    position: relative;
+    font: normal 3px / 3px Tahoma;
+    text-align: left;
+    margin-bottom: 2px;
+    height: 3px;
+    line-height: 3px;
+}
+.videoInfo div.image img.like {
+    height: 3px;
+    background: #ed3056;
+}
+.videoInfo div.likeDetail {
+    width: 220px;
+    font: normal 11px / 11px Tahoma;
+    color: #5B5B5B;
+    position: relative;
+}
+.videoInfo.likeLeft {
+    float: left;
+}
+.videoInfo div.imageunlike {
+    background: #4491b2;
+    width: 220px;
+    position: relative;
+    height: 2.5px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.videoInfo div.image img.like {
+    height: 100%;
+    background: #ed3056;
+    display: block;
+    transition: width 0.3s ease;
+}
+.videoInfo .hometext {
+    position: relative;
+    padding: 6px;
+}
+.socialicon {
+    margin-top: 10px;
+}

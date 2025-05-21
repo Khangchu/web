@@ -275,8 +275,64 @@ add_action('template_redirect', function () {
         }
     }
 });
+// Tăng lượt xem
+function setPostViews($postID) {
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+
+    if ($count == '') {
+        $count = 0;
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '1');
+    } else {
+        $count++;
+        update_post_meta($postID, $count_key, $count);
+    }
+}
+
+// Lấy lượt xem
+function getPostViews($postID){
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    return $count ? $count : '0';
+}
+
+function custom_enqueue_assets() {
+    // Font Awesome CDN
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+}
+add_action('wp_enqueue_scripts', 'custom_enqueue_assets');
+add_action('wp_ajax_update_video_reaction', 'update_video_reaction');
+add_action('wp_ajax_nopriv_update_video_reaction', 'update_video_reaction');
+
+function update_video_reaction() {
+    $post_id = intval($_POST['post_id']);
+    $action  = sanitize_text_field($_POST['action']);
+
+   $reaction = sanitize_text_field($_POST['reaction']); // đổi biến
+if (!in_array($reaction, ['like', 'dislike']) || !$post_id) {
+    wp_send_json_error('Dữ liệu không hợp lệ.');
+}
+$current = intval(get_field($reaction, $post_id));
+$new_value = $current + 1;
+update_field($reaction, $new_value, $post_id);
 
 
+    $like_count = (int) get_field('like', $post_id);
+    $dislike_count = (int) get_field('dislike', $post_id);
+    $total = $like_count + $dislike_count;
+
+    $plike = $total ? round(($like_count / $total) * 100) : 0;
+    $pdislike = $total ? 100 - $plike : 0;
+
+    wp_send_json_success([
+        'count' => $new_value,
+        'like' => $like_count,
+        'dislike' => $dislike_count,
+        'plike' => $plike,
+        'pdislike' => $pdislike,
+    ]);
+}
 ?>
 <?php
 add_filter('nav_menu_css_class', '__return_empty_array');

@@ -53,7 +53,10 @@
                     <div class="logo">
                         <div class="test-site">
                             <a href="/index.php" title ="Trường Điện - Điện tử">
-                                <img src='<?php echo get_template_directory_uri(); ?>/img/logo-dhbk-1-02_130_191 (1).png' alt="Trường Điện - Điện tử"></a>
+                                <?php
+                                $header_page_id = 796
+                                ?>
+                                <img src='<?php echo get_field('logo', $header_page_id)['url'] ?>' alt="Trường Điện - Điện tử"></a>
                             <ul class="text-sologan">
                                 <li class="bo">
                                     <a href="/index.php">Đại học Bách khoa Hà Nội</a>
@@ -151,6 +154,7 @@
         ]);
         ?>
     </div>
+    <div class="menu-mobile-bottom"></div>
 </div>
 
     </header>
@@ -217,17 +221,50 @@ jQuery(document).ready(function($) {
             header.classList.remove('sticky');
         }
     });
-    document.addEventListener("DOMContentLoaded", function () {
-    const arrows = document.querySelectorAll(".fa-angle-down");
+document.addEventListener("DOMContentLoaded", function () {
+    const arrows = document.querySelectorAll(".custom-fa.fa-angle-down, .custom-fa.fa-angle-up");
 
     arrows.forEach(arrow => {
         arrow.addEventListener("click", function (e) {
             e.preventDefault();
-            const parentLi = this.closest("li");
-            const submenu = parentLi.querySelector("ul");
-            if (!submenu) return;
-            parentLi.classList.toggle("active");
-            submenu.style.display = "block";
+
+            const currentArrow = this;
+            const currentLi = currentArrow.closest("li");
+            const currentSubmenu = currentLi.querySelector("ul");
+
+            if (!currentSubmenu) return;
+
+            const siblingLis = Array.from(currentLi.parentElement.children).filter(li => li !== currentLi);
+
+            // Đóng các submenu cùng cấp
+            siblingLis.forEach(li => {
+                const submenu = li.querySelector("ul");
+                const icon = li.querySelector(".custom-fa.fa-angle-up");
+
+                if (submenu) {
+                    jQuery(submenu).slideUp(300);
+                    li.classList.remove("active");
+                }
+
+                if (icon) {
+                    icon.classList.remove("fa-angle-up");
+                    icon.classList.add("fa-angle-down");
+                }
+            });
+
+            // Toggle submenu hiện tại
+            const isVisible = jQuery(currentSubmenu).is(":visible");
+            if (isVisible) {
+                jQuery(currentSubmenu).slideUp(300);
+                currentArrow.classList.remove("fa-angle-up");
+                currentArrow.classList.add("fa-angle-down");
+                currentLi.classList.remove("active");
+            } else {
+                jQuery(currentSubmenu).slideDown(300);
+                currentArrow.classList.remove("fa-angle-down");
+                currentArrow.classList.add("fa-angle-up");
+                currentLi.classList.add("active");
+            }
         });
     });
 });
