@@ -131,7 +131,7 @@
     <div class="menu-mobile-bottom"></div>
 </div>
     </header>
-        <div class="section-nav" style="height: 40px;">
+        <div class="section-nav" style="height: 45px;">
         <div class="wraper">
             <nav class=".section-nav" id="menusite">
                 <div class="container">

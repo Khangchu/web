@@ -35,6 +35,9 @@ elseif (is_tax('cuusinhvien')) {
 elseif ($term && $term->slug === 'truong-dien-dien-tu') {
     get_template_part('TeamofOfficials/taxnomy', 'truongdiendientu');
 }
+elseif (is_tax('doingucanbo')) {
+    get_template_part('TeamofOfficials/taxnomy', 'doi-ngu-can-bo');
+}
 else {
     get_template_part('post/single', 'default');
 }

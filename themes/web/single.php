@@ -39,4 +39,7 @@ elseif($post_type === 'anh') {
 elseif($post_type === 'introduction') {
      get_template_part('introduction/single', 'introduction');
 }
+elseif($post_type === 'teamofofficials') {
+     get_template_part('TeamofOfficials/single', 'teamofofficials');
+}
 ?>

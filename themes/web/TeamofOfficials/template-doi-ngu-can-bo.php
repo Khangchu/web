@@ -170,7 +170,9 @@ Template Name: Đội Ngũ Cán Bộ
                                                                 <img src="<?php echo  esc_url($avatar['url'])  ?>" class="img-thumbnail" style="max-width: 180px" alt="<?php echo esc_attr($name);?>">
                                                             </a>
                                                         </td>
+                                                    </tr>
                                                     <?php
+                                                    $index++;
                                                     }
                                                 }
                                           }
@@ -186,7 +188,7 @@ Template Name: Đội Ngũ Cán Bộ
                                 Tìm kiếm
                             </div>
                             <div class="panel-body">
-                                <form action="/vi/suborgans/viewsearch/" method="get" role="form">
+                                <form action="<?php echo get_permalink(get_page_by_path('tim-kiem-can-bo')); ?>" method="get" role="form">
                                 <div class="form-group">
                                 <label>Họ tên:</label>
                                 <div class="input-group">
@@ -234,4 +236,20 @@ Template Name: Đội Ngũ Cán Bộ
         </section>
     </div>
 </div>
+<script>
+jQuery(document).ready(function($) {
+    $('.btn-group .dropdown-toggle').on('click', function (e) {
+        e.preventDefault();
+        var $btnGroup = $(this).closest('.btn-group');
+        var isOpen = $btnGroup.hasClass('open');
+
+        // Toggle open class
+        $btnGroup.toggleClass('open');
+
+        // Toggle aria-expanded
+        $(this).attr('aria-expanded', !isOpen);
+    });
+});
+</script>
+
 <?php get_footer('footer') ?>

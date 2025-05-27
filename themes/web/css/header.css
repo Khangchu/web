@@ -487,10 +487,6 @@ body {
 .main-header ul.slimmenu{
     background-color: transparent !important;
 }
-.main-header.sticky .section-header, .three-content .item-content .date-published, .custom-about-menu .sidebar-nav ul li.current > a, .section-header,.css-left .panel-default>.panel-heading, .footerNav2, .panel-primary>.panel-heading {
-    background-color: transparent !important; 
-    transition: background-color 0.5s ease-in-out;
-}
 .section-header {
     background-color: #c02135 ;
 }
@@ -879,9 +875,6 @@ iframe {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-ul, ol {
-    list-style: none;
 }
 .section-footer-top .panel-default {
     border-color: transparent;
@@ -1678,4 +1671,87 @@ table caption {
 }
 .font-size-h3 {
     font-size: 17px;
+}
+.panel-primary {
+    border-color: #ccc;
+    border-radius: 0;
+}
+.panel-primary>.panel-heading {
+    background-color: #c02135 !important;
+    border-color: #ccc;
+    border-radius: 0;
+    text-transform: uppercase;
+}
+.suborg {
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.suborg ol li {
+    list-style-type: decimal-leading-zero;
+}
+table caption h2 a {
+    font-size: 20px;
+}
+.d-flex {
+    display: flex
+;
+}
+.d-flex .flex-avatar {
+    flex: 0.4;
+    justify-content: flex-start;
+    display: flex
+;
+}
+.d-flex .flex-des {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+.flex-avatar .img-thumbnail {
+    background-color: transparent !important;
+}
+.font-size-h2 {
+    text-transform: uppercase;
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.font-size-h2 span {
+    border-bottom: 3px solid #333;
+}
+.flex-des p {
+    margin-bottom: 5px;
+}
+.text-break {
+    word-break: break-word;
+}
+figure.table {
+    margin: 5px auto 10px auto;
+    display: table;
+}
+figure.table .ck-table-resized {
+    table-layout: fixed;
+}
+figure.table table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px double var(--nv-border-color);
+}
+figure.table table {
+    overflow: hidden;
+}
+figure.table table td, figure.table table th {
+    min-width: 5px;
+    padding: 7px;
+    border: 1px solid var(--nv-border-color);
+}
+figure.table td, figure.table th {
+    overflow-wrap: break-word;
+    position: relative;
+}
+.text-break ul {
+    list-style: disc;
 }
