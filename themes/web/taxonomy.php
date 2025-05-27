@@ -32,6 +32,9 @@ elseif (is_tax('sinhvien')) {
 elseif (is_tax('cuusinhvien')) {
     get_template_part('alumni/taxnomy', 'cuusinhvien');
 }
+elseif ($term && $term->slug === 'truong-dien-dien-tu') {
+    get_template_part('TeamofOfficials/taxnomy', 'truongdiendientu');
+}
 else {
     get_template_part('post/single', 'default');
 }

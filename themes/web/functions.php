@@ -217,18 +217,24 @@ function fix_search_url_parameters($url) {
     return $url;
 }
 add_filter('get_pagenum_link', 'fix_search_url_parameters');
-function remove_editor_for_specific_page() {
-    // ID của trang bạn muốn tắt trình soạn thảo
-    $page_id = 562;
+add_action('admin_init', 'remove_editor_for_specific_pages');
 
-    // Lấy màn hình hiện tại
-    $screen = get_current_screen();
+function remove_editor_for_specific_pages() {
+    // Mảng các ID của các page muốn tắt trình soạn thảo
+    $page_ids = [562, 28,93,135,236,259,314,417,439,460,562,769,781,796]; // <-- Thay bằng ID thực tế của bạn
 
-    if ( $screen->post_type === 'page' && isset($_GET['post']) && intval($_GET['post']) === $page_id ) {
-        remove_post_type_support('page', 'editor');
+    // Kiểm tra xem có đang ở trang chỉnh sửa bài viết không
+    if (isset($_GET['post'])) {
+        $post_id = intval($_GET['post']);
+        $post_type = get_post_type($post_id);
+
+        // Nếu là loại 'page' và ID nằm trong danh sách
+        if ($post_type === 'page' && in_array($post_id, $page_ids)) {
+            remove_post_type_support('page', 'editor');
+        }
     }
 }
-add_action('admin_head', 'remove_editor_for_specific_page');
+
 add_action('template_redirect', function () {
     if (is_tax('lichcongtac')) {
         $term = get_queried_object(); // lấy term hiện tại
@@ -333,6 +339,67 @@ update_field($reaction, $new_value, $post_id);
         'pdislike' => $pdislike,
     ]);
 }
+add_action('wp_ajax_comment_like', 'handle_comment_like');
+add_action('wp_ajax_nopriv_comment_like', 'handle_comment_like');
+
+function handle_comment_like() {
+    $comment_id = intval($_POST['comment_id']);
+    $value = intval($_POST['value']); // 1 = like, -1 = dislike
+
+    $likes = get_comment_meta($comment_id, 'likes', true) ?: 0;
+    $dislikes = get_comment_meta($comment_id, 'dislikes', true) ?: 0;
+
+    if ($value == 1) {
+        $likes++;
+        update_comment_meta($comment_id, 'likes', $likes);
+    } elseif ($value == -1) {
+        $dislikes++;
+        update_comment_meta($comment_id, 'dislikes', $dislikes);
+    }
+
+    wp_send_json_success([
+        'likes' => $likes,
+        'dislikes' => $dislikes
+    ]);
+}
+// AJAX xử lý like/dislike bình luận
+add_action('wp_ajax_handle_comment_like_dislike', 'handle_comment_like_dislike');
+add_action('wp_ajax_nopriv_handle_comment_like_dislike', 'handle_comment_like_dislike');
+
+function handle_comment_like_dislike() {
+    if (!isset($_POST['comment_id'], $_POST['value'])) {
+        wp_send_json_error(['message' => 'Thiếu dữ liệu']);
+    }
+
+    $comment_id = intval($_POST['comment_id']);
+    $value = $_POST['value'] === '1' ? 1 : -1; // 1 = like, -1 = dislike
+
+    // Kiểm tra comment tồn tại
+    $comment = get_comment($comment_id);
+    if (!$comment) {
+        wp_send_json_error(['message' => 'Bình luận không tồn tại']);
+    }
+
+    // Lấy meta hiện tại hoặc 0
+    $like_count = (int) get_comment_meta($comment_id, 'like', true);
+    $dislike_count = (int) get_comment_meta($comment_id, 'dislike', true);
+
+    // Cập nhật số lượng tùy theo action
+    if ($value === 1) {
+        $like_count++;
+        update_comment_meta($comment_id, 'like', $like_count);
+    } else {
+        $dislike_count++;
+        update_comment_meta($comment_id, 'dislike', $dislike_count);
+    }
+
+    wp_send_json_success([
+        'like' => $like_count,
+        'dislike' => $dislike_count,
+    ]);
+}
+
+
 ?>
 <?php
 add_filter('nav_menu_css_class', '__return_empty_array');

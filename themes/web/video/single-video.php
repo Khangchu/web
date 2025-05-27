@@ -149,7 +149,7 @@
 <div id="idcomment" class="nv-fullbg">
     <div class="row clearfix margin-bottom-lg">
         <div class="col-xs-12 text-left">
-            <button type="button" class="btn btn-default btn-sm pull-right" onclick="document.getElementById('showcomment').classList.toggle('d-none')" title="Ẩn/Hiện ý kiến">
+            <button type="button" class="btn btn-default btn-sm pull-right" onclick="$('.fa', this).toggleClass('fa-eye fa-eye-slash'),nv_show_hidden('showcomment',2);" title="Ẩn/Hiện ý kiến">
                 <em class="fa fa-eye-slash"></em>
             </button>
             <p class="comment-title">
@@ -164,78 +164,108 @@
     </div>
 
     <div id="showcomment" class="margin-bottom-lg">
-
-    
-            <ul class="comment-list">
-                <?php
-                wp_list_comments([
-                    'style'      => 'ul',
-                    'avatar_size' => 40,
-                    'status'     => 'all',
-                    'callback' => function ($comment, $args, $depth) {
+          <?php
+                global $post;
+                setup_postdata($post);
+                $comments = get_comments([
+                    'post_id' => $post->ID,
+                    'status'  => 'all', 
+                ]);
+                if (!empty($comments)) {
+                    echo '<ul class="comment-list">';
+                    $i = count($comments) ;
+                    foreach ($comments as $comment) {
+                        $comment_like = (int) get_comment_meta($comment->comment_ID, 'like', true);
+                        $comment_dislike = (int) get_comment_meta($comment->comment_ID, 'dislike', true);
                         ?>
-                        <li class="media" id="comment-<?php comment_ID(); ?>">
+                        <li class="media" id= "cid_<?php echo $comment->comment_ID;?>">
                             <div class="pull-left">
-                                <?php echo get_avatar($comment, 40, null, '', ['class' => 'media-object bg-gainsboro']); ?>
+                                <img src="<?php echo get_template_directory_uri(); ?>../img/no_avatar.png" alt="<?php echo esc_html($comment->comment_author)?>" class="media-object bg-gainsboro" width="40">
                             </div>
                             <div class="media-body">
-                                <div class="margin-bottom"><?php comment_text(); ?></div>
+                                <div class="margin-bottom"><?php echo esc_html($comment->comment_content);?></div>
                                 <div class="comment-info clearfix">
                                     <div class="clearfix">
                                         <em class="fa fa-user">&nbsp;</em>
-                                        <strong class="cm_item"><?php comment_author(); ?></strong>
+                                        <strong class="cm_item"> <?php echo esc_html($comment->comment_author)?> </strong>
                                         <em class="fa fa-clock-o">&nbsp;</em>
-                                        <span class="small"><?php echo get_comment_date('d/m/Y H:i'); ?></span>
+                                        <span class="small"><?php echo esc_html($comment->comment_date) ?></span>
                                     </div>
-                                    <ul class="comment-tool clearfix">
-                                        <li><em class="fa fa-reply">&nbsp;</em> <?php comment_reply_link(['depth' => $depth, 'max_depth' => 5]); ?></li>
-                                    </ul>
+                              <ul class="comment-tool clearfix">
+                                    <li>
+                                        <em class="fa fa-reply">&nbsp;</em>
+                                        <a href="javascript:void(0);" onclick="nv_comment_reply(event, <?php echo $comment->comment_ID ?>, '<?php echo esc_js($comment->comment_author); ?>')">Trả lời</a>
+                                    </li>
+                                    <li>
+                                        <em class="fa fa-thumbs-o-up">&nbsp;</em>
+                                        <a href="javascript:void(0);" onclick="nv_comment_like(event, <?php echo $comment->comment_ID; ?>, '1')">Thích</a>
+                                          <span id="like<?php echo $comment->comment_ID ?>"><?php echo $comment_like > 0 ? $comment_like : 0; ?></span>
+                                    </li>
+                                    <li>
+                                        <em class="fa fa-thumbs-o-down">&nbsp;</em>
+                                        <a href="javascript:void(0);" onclick="nv_comment_like(event, <?php echo $comment->comment_ID; ?>, '-1')">Không thích</a>
+                                        <span id="dislike<?php echo $comment->comment_ID ?>"><?php echo $comment_dislike > 0 ? $comment_dislike : 0; ?></span>
+                                    </li>
+                                </ul>
                                 </div>
+                                   <div class="reply-form-container"></div>
                             </div>
                         </li>
                         <?php
+                        $i--;
                     }
-                ]);
+                    echo '</ul>';
+                } else {
+                    echo '<p>Chưa có bình luận nào.</p>';
+                }
+
+                wp_reset_postdata();
                 ?>
-            </ul>
-
-
+            <div class="text-center"></div>
+        </div>
+        <div id="formcomment" class="comment-form">
         <?php if (comments_open()) : ?>
-            <div id="formcomment" class="comment-form">
-            <?php if (comments_open()) : ?>
-                <form action="<?php echo site_url('/wp-comments-post.php'); ?>" method="post" id="commentform" class="comment-form">
-        <div class="form-group">
-            <input id="author" name="author" type="text" class="form-control" placeholder="Tên của bạn*" required>
+            <form action="<?php echo site_url('/wp-comments-post.php'); ?>" method="post" id="commentform" class="comment-form">
+    <div class="form-group clearfix">
+        <div class="row">
+            <div class="col-xs-12">
+                <input id="author" name="author" type="text" class="form-control" placeholder="Tên của bạn" required>
+            </div>
+            <div class="col-xs-12">
+                <input id="email" name="email" type="email" class="form-control" placeholder="Email*" required>
+            </div>
         </div>
+    </div>
+    <div class="form-group clearfix">
+        <textarea id="comment" name="comment" class="form-control"  style="width: 100%" rows="5" cols="20" placeholder="Nội dung bình luận" required></textarea>
+    </div>
 
-        <div class="form-group">
-            <input id="email" name="email" type="email" class="form-control" placeholder="Email*" required>
-        </div>
-        <div class="form-group">
-            <textarea id="comment" name="comment" class="form-control" rows="5" placeholder="Nội dung bình luận" required></textarea>
-        </div>
-
-
+    <div class="form-group text-center">
+        <input type="button" value="Thiết lập lại" class="reset btn btn-default" onclick="nv_comment_reset(event, this.form);">
         <button type="submit" class="btn btn-primary">Gửi bình luận</button>
 
-        <?php comment_id_fields(); ?>
-        <?php do_action('comment_form', get_the_ID()); ?>
-    </form>
+    </div>
+
+
+
+    <?php comment_id_fields(); ?>
+    <?php do_action('comment_form', get_the_ID()); ?>
+</form>
 <?php endif; ?>
 
-            </div>
-        <?php endif; ?>
+        </div>
 
-    </div>
 </div>
 
                     </div>
-                    <div class="col-sm-8 col-md-6 col-sm-pull-16 col-md-pull-18 css-left"></div>
                 </div>
-                <div class="row"></div>
             </div>
-        </section>
+            <div class="col-sm-8 col-md-6 col-sm-pull-16 col-md-pull-18 css-left"></div>
+        </div>
+        <div class="row"></div>
     </div>
+</section>
+ </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -281,6 +311,75 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-</script>
+function nv_comment_like(event, commentId, value) {
+    event.preventDefault();
 
+    fetch('<?php echo admin_url("admin-ajax.php"); ?>', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'action=handle_comment_like_dislike&comment_id=' + commentId + '&value=' + value
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            if (value === '1') {
+                document.getElementById('like' + commentId).innerText = data.data.like;
+            } else {
+                document.getElementById('dislike' + commentId).innerText = data.data.dislike;
+            }
+        } else {
+            alert(data.message || 'Đã xảy ra lỗi!');
+        }
+    });
+}
+function nv_comment_reply(event, commentId, authorName) {
+    event.preventDefault();
+    const form = document.querySelector('#commentform');
+    if (!form) return;
+
+    // Hiển thị form nếu bị ẩn
+    const formCommentContainer = document.querySelector('#formcomment');
+    if (formCommentContainer) {
+        formCommentContainer.style.display = 'block';
+    }
+
+    // Điền @Tên người được trả lời vào textarea comment
+    const textarea = form.querySelector('#comment');
+    if (textarea) {
+        textarea.value = '@' + authorName + ' ';
+        textarea.focus();
+        textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
+    }
+
+    // Gán comment_parent = commentId để tạo reply
+    let inputParent = form.querySelector('input[name="comment_parent"]');
+    if (!inputParent) {
+        inputParent = document.createElement('input');
+        inputParent.type = 'hidden';
+        inputParent.name = 'comment_parent';
+        form.appendChild(inputParent);
+    }
+    inputParent.value = commentId;
+
+    // Di chuyển form vào ngay sau phần bình luận
+    const commentEl = document.querySelector('#cid_' + commentId);
+    if (commentEl) {
+        commentEl.insertAdjacentElement('afterend', form);
+    }
+
+    // Cuộn đến vị trí form mới
+    form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+
+
+// Hàm reset form, xóa comment_parent khi reset
+function nv_comment_reset(event, form) {
+    event.preventDefault();
+    form.reset();
+    const inputParent = form.querySelector('input[name="comment_parent"]');
+    if (inputParent) inputParent.value = '0';
+}
+
+</script>
 <?php get_footer('footer') ?>

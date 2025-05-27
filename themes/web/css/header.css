@@ -15,7 +15,7 @@
     }
     .wraper {
         width: 100%;
-        max-width: 1200px;
+        max-width: 1200px !important;
     }
     .wraper {
         width: 100%;
@@ -664,9 +664,6 @@ body {
     background-color: #393637;
 }
 .wraper {
-    width: 100%;
-}
-.wraper {
     position: relative;
     width: 1080px;
     margin: 0 auto;
@@ -979,7 +976,7 @@ ul.slimmenu>li>a {
 ul.slimmenu>li>a {
     color: #393637 !important;
     font-family: 'LinhAvantGarde', sans-serif !important;
-    font-size: 15px !important;
+    font-size: 17px !important;
     font-weight: 600 !important;
     text-transform: uppercase;
 }
@@ -1606,4 +1603,79 @@ ul.slimmenu > li > a {
 }
 .socialicon {
     margin-top: 10px;
+}
+#idcomment {
+    padding: 0 5px;
+    padding-bottom: 10px;
+}
+.nv-fullbg {
+    min-height: 100%;
+    background-color: #fff;
+}
+
+#idcomment .comment-title {
+    font-size: 13px;
+    font-weight: bold;
+}
+#idcomment {
+    padding: 0 5px;
+    padding-bottom: 10px;
+}
+
+#idcomment .comment-title {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#idcomment .sortcomm .active {
+    background: #f5f5f5;
+}
+
+.comment-list .comment-info {
+    margin-bottom: 5px;
+    border-bottom: 1px #eee solid;
+    padding-bottom: 5px;
+}
+
+.comment-list .comment-info .cm_item {
+    margin-right: 10px;
+}
+
+.comment-list .comment-tool {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    list-style: none;
+}
+
+.comment-list .comment-tool li {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.comment-list .comment-tool li:first-child {
+    margin: 0;
+}
+
+.comment-list {
+    margin: 0;
+    padding-left: 0;
+}
+
+.comment-list .comment-list {
+    padding-left: 20px;
+}
+.bg-gainsboro {
+    background-color: #dcdcdc;
+}
+table caption {
+    color: #357ebd;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 22px;
+    padding: 0 0 5px 2px;
+}
+.font-size-h3 {
+    font-size: 17px;
 }
