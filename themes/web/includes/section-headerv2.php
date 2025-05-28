@@ -28,8 +28,10 @@
                     <div class="logo">
                         <div class="test-site">
                             <a href="/index.php" title ="Trường Điện - Điện tử">
-                                
-                                <img src='<?php echo get_template_directory_uri(); ?>/img/logo-dhbk-1-02_130_191 (1).png' alt="Trường Điện - Điện tử">
+                                  <?php
+                                $header_page_id = 1047
+                                ?>
+                                <img src='<?php echo get_field('logo', $header_page_id)['url'] ?>' alt="Trường Điện - Điện tử"></a>
                                 </a>
                             <ul class="text-sologan">
                                 <li class="bo">
@@ -188,15 +190,22 @@ jQuery(document).ready(function($) {
     });
 });
 
-    window.addEventListener('scroll', function () {
-       const header = document.querySelector('.menu-top-scroll');
-        console.log(header);
-        if (window.scrollY > 50) {
-            header.classList.add('sticky');
-        } else {
-            header.classList.remove('sticky');
-        }
-    });
+const header = document.querySelector('.menu-top-scroll');
+const placeholder = document.createElement('div');
+placeholder.style.height = header.offsetHeight + 'px';
+placeholder.style.display = 'none';
+header.parentNode.insertBefore(placeholder, header);
+
+window.addEventListener('scroll', function () {
+    if (window.scrollY > 50) {
+        header.classList.add('sticky');
+        placeholder.style.display = 'block';
+    } else {
+        header.classList.remove('sticky');
+        placeholder.style.display = 'none';
+    }
+});
+
 document.addEventListener("DOMContentLoaded", function () {
     const arrows = document.querySelectorAll(".custom-fa.fa-angle-down, .custom-fa.fa-angle-up");
 

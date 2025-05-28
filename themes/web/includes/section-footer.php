@@ -24,11 +24,20 @@
                     <div class="panel-body">
 		            <div id="socialList" class="content">
                         <ul class="socialList">
-                            <li><a href="<?php echo get_field('link_fb')?>" target="_blank" rel="noopener noreferrer nofollow" class="icon"><i class="fa-brands fa-facebook-f"></i></a></li>
-                            <li><a href="<?php echo get_field('link_youtube')?>" target="_blank" rel="noopener noreferrer nofollow" class="icon"><i class="fa-brands fa-youtube"></i></a></li>
-                            <li><a href="<?php echo get_field('link_x')?>" target="_blank" rel="noopener noreferrer nofollow" class="icon" ><i class="fa-brands fa-twitter"></i></a></li>
-                            <li><a href="<?php echo get_field('link_linkedln')?>" target="_blank" rel="noopener noreferrer nofollow" class="icon"><i class="fa-brands fa-instagram"></i></a></li>
-                            <li><a href="<?php echo get_field('link_ig')?>" target="_blank" rel="noopener noreferrer nofollow" class="icon"><i class="fa-brands fa-linkedin"></i></a></li>
+                            <?php 
+                            $footer_id_page = 1047;
+                            $link_f = get_field('link_f', $footer_id_page)['url'];
+                            $link_y = get_field('link_y', $footer_id_page)['url'];
+                            $link_x = get_field('link_x', $footer_id_page)['url'];
+                            $link_l = get_field('link_l', $footer_id_page)['url'];
+                            $link_i = get_field('link_i', $footer_id_page)['url'];
+                            $copyright = get_field('bản_quyền', $footer_id_page)
+                            ?>
+                            <li><a href="<?= esc_url($link_f) ?>" target="_blank" rel="noopener noreferrer nofollow" class="icon"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            <li><a href="<?= esc_url($link_y) ?>" target="_blank" rel="noopener noreferrer nofollow" class="icon"><i class="fa-brands fa-youtube"></i></a></li>
+                            <li><a href="<?= esc_url($link_x) ?>" target="_blank" rel="noopener noreferrer nofollow" class="icon" ><i class="fa-brands fa-twitter"></i></a></li>
+                            <li><a href="<?= esc_url($link_l) ?>" target="_blank" rel="noopener noreferrer nofollow" class="icon"><i class="fa-brands fa-instagram"></i></a></li>
+                            <li><a href="<?= esc_url($link_i) ?>" target="_blank" rel="noopener noreferrer nofollow" class="icon"><i class="fa-brands fa-linkedin"></i></a></li>
                          </ul>
                     </div>
 	                </div>
@@ -52,7 +61,7 @@
 	            <div class="panel-body">
 		        <div class="content">
 		        <div class="rss-footer">
-		            <a href="https://seee.hust.edu.vn/vi/feeds/">Xem sơ đồ trang ...</a>
+		            <a href="<?php the_permalink(1088)?>">Xem sơ đồ trang</a>
 	            </div>
                 </div>
 	            </div>
@@ -71,7 +80,7 @@
 <div class="wraper">
             <div class="container">
                 <div class="col-md-5 col-sm-5 col-xs-24" style="padding-left: 0px"></div>
-                <div class="col-md-19 col-sm-19 col-xs-24 css-banquyen"><?php echo get_field('ban_quyen') ?>
+                <div class="col-md-19 col-sm-19 col-xs-24 css-banquyen"><?php echo $copyright?>
 </div>
                 <div class="bttop hidden">
                     <a class="pointer"><i class="fa fa-eject fa-lg"></i></a>
@@ -80,11 +89,10 @@
         </div>
 </nav>
 <script>
-  $("#totop,#bttop,.bttop").click(function() {
-        $("html,body").animate({
-            scrollTop: 0
-        }, 800);
-        return !1
+jQuery(document).ready(function($) {
+    $("#totop, #bttop, .bttop").click(function() {
+        $("html, body").animate({ scrollTop: 0 }, 800);
+        return false;
     });
-
+});
 </script>

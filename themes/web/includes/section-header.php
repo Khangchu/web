@@ -22,31 +22,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="site-banner"></div>
-        <div class="section-header-bar">
-            <div class="wraper">
-                <div class="header-bar">
-                    <div class="header-nav-inner">
-                        <div class= "contactDefault"></div>
-                        <div class ="social-icons">
-                         <div id="socialList" class="content">
-                            <ul class="socialList">
-                                <li><a href="http://www.facebook.com/nukeviet" target="_blank" rel="noopener noreferrer nofollow"><i class="fa fa-lg fa-facebook"></i></a></li>
-                                <li><a href="https://www.youtube.com/user/nukeviet" target="_blank" rel="noopener noreferrer nofollow"><i class="fa fa-lg fa-youtube-play"></i></a></li>
-                                <li><a href="https://twitter.com/nukeviet" target="_blank" rel="noopener noreferrer nofollow"><i class="fa fa-lg fa-twitter"></i></a></li>
-                            </ul>
-                        </div>
-                        </div>
-                        <div class ="personalArea">
-                            <span><a title="Đăng nhập - Đăng ký" class="pa pointer button" data-toggle="tip" data-target="#guestBlock_nv1" data-click="y" data-callback="loginFormLoad"><em class="fa fa-user fa-lg"></em><span class="hidden">Đăng nhập</span></a></span>
-                        </div>
-                    </div>
-                    <div id="tip" data-content>
-                        <div class="bg"></div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="section-header home-header">
             <div class="wraper">
                 <div id="header">
@@ -54,7 +29,7 @@
                         <div class="test-site">
                             <a href="/index.php" title ="Trường Điện - Điện tử">
                                 <?php
-                                $header_page_id = 796
+                                $header_page_id = 1047
                                 ?>
                                 <img src='<?php echo get_field('logo', $header_page_id)['url'] ?>' alt="Trường Điện - Điện tử"></a>
                             <ul class="text-sologan">

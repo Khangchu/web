@@ -8,7 +8,7 @@ get_header("v2");
     <div>
         <section>
             <div class="container suborgans" id="body">
-                          <nav class="third-nav wraper">
+                <nav class="third-nav wraper">
                     <div class="row">
                         <div class="bg">
                             <div class="clearfix">

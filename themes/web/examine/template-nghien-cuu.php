@@ -229,9 +229,9 @@ Template Name: Nghiên cứu
                             $terms = get_terms([
                                 'taxonomy' => 'nghiencuu',
                                 'hide_empty' => false,
-                                'parent' => 0 
+                                'parent' => 0 ,
                             ]);
-
+                            $terms = array_slice(array_reverse($terms), 0, 6);
                             if (!empty($terms) && !is_wp_error($terms)) {
                                 foreach ($terms as $term) {
                                     $term_link = get_term_link($term);
