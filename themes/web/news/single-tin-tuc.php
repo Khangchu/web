@@ -14,7 +14,7 @@
                                         <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="<?php the_permalink(93)?>"><span>Tin Tức<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_2">
                                             <?php
                                             $post_id = get_the_ID();
-                                            $terms = get_the_terms($post_id, 'tintuc');
+                                            $terms = get_the_terms($post_id, 'khoatrungtam');
                                             
                                             if (!empty($terms) && !is_wp_error($terms)) {
 

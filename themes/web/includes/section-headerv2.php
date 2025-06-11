@@ -205,13 +205,17 @@ jQuery(document).ready(function($) {
         childrenIndenter: '&raquo;'
     });
 
-    // Thêm class 'current' thủ công dựa trên URL
-    var currentUrl = window.location.href;
-    console.log(currentUrl);
+    // Lấy URL từ breadcrumb tại li#brcr_1 a
+    var breadcrumbUrl = $('#brcr_1 a').prop('href');
+    breadcrumbUrl = breadcrumbUrl.replace(/\/$/, ''); // Bỏ dấu "/" cuối nếu có
+    console.log('Breadcrumb URL:', breadcrumbUrl);
+
+    // So sánh URL breadcrumb với từng menu item
     $('.slimmenu li a').each(function() {
-        if (this.href === currentUrl || this.href === currentUrl.split('#')[0]) {
+        var menuUrl = $('<a>').prop('href', this.href).prop('href').replace(/\/$/, '');
+        if (menuUrl === breadcrumbUrl) {
             $(this).parent().addClass('current');
-              console.log(this.href);
+            console.log('Menu URL:', menuUrl);
         }
     });
 });
