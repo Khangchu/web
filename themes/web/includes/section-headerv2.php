@@ -27,7 +27,13 @@
                 <div id="header">
                     <div class="logo">
                         <div class="test-site">
-                            <a href="/index.php" title ="Trường Điện - Điện tử">
+                            <?php
+                                // Lấy URL trang chủ theo ngôn ngữ hiện tại
+                                $home_url = function_exists('trp_get_translated_home_url') 
+                                    ? trp_get_translated_home_url() // Hàm của TranslatePress
+                                    : home_url('/'); // Fallback nếu không có TranslatePress
+                                ?>
+                            <a href="<?php echo esc_url($home_url); ?>" title ="Trường Điện - Điện tử">
                                   <?php
                                 $header_page_id = 1047
                                 ?>
@@ -35,21 +41,21 @@
                                 </a>
                             <ul class="text-sologan">
                                 <li class="bo">
-                                    <a href="/index.php">Đại học Bách khoa Hà Nội</a>
+                                    <a href="<?php echo esc_url($home_url); ?>">Đại học Bách khoa Hà Nội</a>
                                 </li>
                                 <li class="cuc">
-                                    <a href="/index.php">Trường Điện - Điện tử</a>
+                                    <a href="<?php echo esc_url($home_url); ?>">Trường Điện - Điện tử</a>
                                 </li>
                             </ul>
                             <ul class="text-modile">
                                 <li class="dong">
-                                <a href="http://seee.hust.edu.vn/vi/">Đại học</a>
+                                <a href="<?php echo esc_url($home_url); ?>">Đại học</a>
                             </li>
                                 <li class="dong">
-                            <a href="http://seee.hust.edu.vn/vi/">Bách khoa Hà Nội</a>
+                            <a href="<?php echo esc_url($home_url); ?>">Bách khoa Hà Nội</a>
                             </li>
                                 <li class="line">
-                            <a href="http://seee.hust.edu.vn/vi/">Trường Điện - Điện tử</a>
+                            <a href="<?php echo esc_url($home_url); ?>">Trường Điện - Điện tử</a>
                             </li>
                         </ul>
                         </div>
@@ -59,12 +65,9 @@
                         <div class="menu_topright">
                           <ul>
                                 <?php
-                                // Tính tuần và năm hiện tại
                                 $now = new DateTime();
                                 $tuan = (int) $now->format('W');
                                 $nam  = (int) $now->format('o');
-
-                                // Tìm bài viết workcalendar ứng với tuần/năm hiện tại
                                 $args = [
                                     'post_type'      => 'workcalendar',
                                     'posts_per_page' => 1,
@@ -106,8 +109,22 @@
                     </div>
                     <div class="languages">
                         <div class="language">
-                            <a href="" class="active" title= "Tiếng việt" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/vi.png');"></a>
-                            <a href=""  title= "English" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/en.png');"></a>
+                        <a href="/index.php" class="active" title= "Tiếng việt" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/vi.png');"></a>
+                           <?php
+                        $current_url = home_url(add_query_arg([], $_SERVER['REQUEST_URI']));
+                        $english_url = '';
+                        if (function_exists('trp_get_url_for_language')) {
+                            $english_url = trp_get_url_for_language('en_US', $current_url);
+                        } else {
+                            $english_url = str_replace('/vi/', '/en/', $current_url);
+                            if ($current_url === home_url('/')) {
+                                $english_url = home_url('/en/');
+                            }
+                        }
+                        ?>
+
+                        <a href="<?php echo esc_url($english_url); ?>" title="English" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/img/en.png'); ?>');"></a>
+
 
                         </div>
                     </div>
@@ -138,7 +155,7 @@
             <nav class=".section-nav" id="menusite">
                 <div class="container">
                     <div class="row">
-                        <div>
+                        <div class="v2">
                         <?php
     wp_nav_menu([
         'theme_location' => 'primary',
@@ -148,7 +165,6 @@
         'items_wrap'     => '<ul class="slimmenu">%3$s</ul>', // Thêm class "khang" vào <ul>
     ]);
     ?>
-    
                         </div>
                     </div>
                 </div>
@@ -188,7 +204,18 @@ jQuery(document).ready(function($) {
         indentChildren: true,
         childrenIndenter: '&raquo;'
     });
+
+    // Thêm class 'current' thủ công dựa trên URL
+    var currentUrl = window.location.href;
+    console.log(currentUrl);
+    $('.slimmenu li a').each(function() {
+        if (this.href === currentUrl || this.href === currentUrl.split('#')[0]) {
+            $(this).parent().addClass('current');
+              console.log(this.href);
+        }
+    });
 });
+
 
 const header = document.querySelector('.menu-top-scroll');
 const placeholder = document.createElement('div');

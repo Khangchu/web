@@ -3,6 +3,10 @@
 Template Name: Hợp tác và đối ngoại
 */
 ?>
+<?php
+ wp_redirect(get_permalink(411));
+ exit;
+?>
 <?php get_header("v2")?>
 <div class="section-banner">
     </div>

@@ -231,7 +231,7 @@
     color: #fff !important;
 }
 .css-left .metismenu .sidebar-nav ul a, .no-padding-css .metismenu .sidebar-nav ul a {
-    color: #4e4e4e !important;
+    color: #4e4e4e ;
     font-weight: 600;
     text-transform: uppercase;
     padding: 10px 20px;
@@ -246,7 +246,7 @@
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
 }
 .metismenu a {
-    color: #fff !important;
+    color: #fff ;
     text-decoration: none !important;
 }
 .custom-about-menu .sidebar-nav ul li.current a ~ .arrow, .custom-about-menu .sidebar-nav ul a:hover ~ .arrow {
@@ -300,17 +300,28 @@
     position: relative;
 }
 .custom-about-menu .sidebar-nav ul li.current > a:hover {
-    background-color: #2479f8 !important; 
+    background-color: #B41D24  !important; 
     color: #fff !important;
     transition: background-color 0.2s ease, color 0.2s ease !important;
 }
 .custom-metis-sub-item a:hover {
-    background-color: #2479f8 !important; 
+    background-color: #B41D24 !important;
+    color: #fff !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+.custom-metis-sub-item a:hover {
+    background-color: #B41D24 !important;
     color: #fff !important;
     transition: background-color 0.2s ease, color 0.2s ease !important;
 }
 .menu_56 li a:hover {
-    background-color: #2479f8 !important; 
+    background-color: #B41D24 !important;
     color: #fff !important;
     transition: background-color 0.2s ease, color 0.2s ease !important;
 }
+.custom-metis-sub-item.active2 > a {
+    background-color: #B41D24 !important;
+    color: #fff !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+

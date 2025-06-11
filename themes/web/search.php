@@ -76,7 +76,12 @@
                     </div>
                     <div class="form-group">
                         <input type="submit" id="search_submit" value="Tìm kiếm" class="btn btn-primary">
-                        <a href="#" class="advSearch">Nâng cao</a>
+                         <?php
+                            $advanced_search_url = function_exists('trp_get_url_for_language') 
+                            ? trp_get_url_for_language(null, get_permalink(1097)) 
+                            : get_permalink(1097);
+                            ?>
+                            <a href="<?php echo esc_url($advanced_search_url); ?>" class="advSearch" id="advanced-search-link">Nâng cao</a>
                     </div>
                 </div>
                 <div class="radio">
@@ -293,7 +298,9 @@ echo $highlighted;
 document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("search_query");
     const submit = document.getElementById("search_submit");
-
+    const select = document.getElementById("search_query_mod");
+    const advancedSearch = document.querySelector(".advSearch");
+    const advancedSearchLink = document.getElementById("advanced-search-link");
     // Ban đầu disable nếu input rỗng
     submit.disabled = input.value.length < 3;
 
@@ -304,7 +311,31 @@ document.addEventListener("DOMContentLoaded", function () {
             submit.disabled = true;
         }
     });
+     // Ẩn/hiển thị liên kết "Nâng cao" dựa trên giá trị select
+    function toggleAdvancedSearch() {
+        if (select.value === 'any' || select.value === 'page') {
+            if (advancedSearch) {
+                advancedSearch.style.display = 'none';
+            }
+        } else {
+            if (advancedSearch) {
+                advancedSearch.style.display = 'inline-block';
+            }
+        }
+          if (advancedSearchLink) {
+            let baseUrl = '<?php echo esc_url(get_permalink(1097)); ?>';
+            <?php if (function_exists('trp_get_url_for_language')): ?>
+                baseUrl = '<?php echo esc_url(trp_get_url_for_language(null, get_permalink(1097))); ?>';
+            <?php endif; ?>
+            advancedSearchLink.href = baseUrl + (select.value ? '?search_post_type=' + encodeURIComponent(select.value) : '');
+        }
+    }
 
+    // Gọi khi tải trang
+    toggleAdvancedSearch();
+
+    // Gọi khi thay đổi select
+    select.addEventListener("change", toggleAdvancedSearch);
     // Optional: chặn form nếu bấm submit khi < 3 ký tự
     const form = document.getElementById("form_search");
     form.addEventListener("submit", function (e) {

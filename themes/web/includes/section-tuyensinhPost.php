@@ -143,7 +143,7 @@
                                                                 <?php echo esc_html($term->name); ?>
                                                             </a>
                                                             <?php if ($has_posts){ ?>
-                                                                <span id="span-id" class="fa arrow expand" style="margin-top: -52px;"></span>
+                                                                <span id="span-id" class="fa arrow expand" style="margin-top: -36px;"></span>
                                                                 <ul class = "collapse">
                                                                 <?php echo do_shortcode('[list_tuyensinh slug="' . $term->slug . '"]'); ?>
                                                                 </ul>

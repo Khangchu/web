@@ -221,7 +221,7 @@ add_action('admin_init', 'remove_editor_for_specific_pages');
 
 function remove_editor_for_specific_pages() {
     // Mảng các ID của các page muốn tắt trình soạn thảo
-    $page_ids = [562,28,93,135,236,259,314,417,439,460,562,769,781,796,1056,1047,1088]; // <-- Thay bằng ID thực tế của bạn
+    $page_ids = [562,28,93,135,236,259,314,417,439,460,562,769,781,796,1056,1047,1088,10,1097]; // <-- Thay bằng ID thực tế của bạn
 
     // Kiểm tra xem có đang ở trang chỉnh sửa bài viết không
     if (isset($_GET['post'])) {

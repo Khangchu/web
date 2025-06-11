@@ -200,11 +200,17 @@
 
 }
 .ct h3 a {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  max-height: 3em; /* 1.5em x 2 dòng = 3em, tùy chỉnh theo font */
+  line-height: 1.5em; /* đảm bảo line-height */
+}
+
+
   .slick-slide > li {
     margin-right: 30px;
     width: calc(33.333% - 20px);

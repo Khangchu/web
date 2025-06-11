@@ -3,6 +3,11 @@
 Template Name: Tin Tức
 */
 ?>
+<?php
+$term = get_term_by('id', 4, 'tintuc');
+ wp_redirect(get_term_link($term));
+ exit;
+?>
 <?php get_header("v2")?>
 <div class="section-body">
     <div>
@@ -105,17 +110,26 @@ Template Name: Tin Tức
                                                 <div class="ibg-item">
                                                     <div class="ibg">
                                                         <div class="height-tabs">
-                                                            <div class="img">
-                                                                <a href="<?= esc_url($p['link']); ?>" title="<?= esc_attr($p['title']); ?>">
-                                                                    <img src="<?= esc_url($p['img']); ?>" alt="<?= esc_attr($p['title']); ?>">
-                                                                </a>
-                                                            </div>
-                                                            <div class="ct">
-                                                                <h3>
-                                                                    <a class="show" href="<?= esc_url($p['link']); ?>" data-content="<?= esc_attr($p['title']); ?>" data-img="<?= esc_url($p['img']); ?>" data-rel="cattitlebox">
-                                                                        <?= esc_html($p['title']); ?>
+                                                            <?php
+                                                            if(esc_url($p['img'])) {
+                                                                ?>
+                                                                <div class="img">
+                                                                    <a href="<?= esc_url($p['link']); ?>" title="<?= esc_attr($p['title']); ?>">
+                                                                        <img src="<?= esc_url($p['img']); ?>" alt="<?= esc_attr($p['title']); ?>">
                                                                     </a>
-                                                                </h3>
+                                                                </div>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                            <div class="ct">
+                                                          <h3>
+                                                                <a class="show" href="<?= esc_url($p['link']); ?>"
+                                                                data-content="<?= esc_attr($p['title']); ?>"
+                                                                data-img="<?= esc_url($p['img']); ?>"
+                                                                data-rel="cattitlebox">
+                                                                    <?= esc_html($p['title']); ?>
+                                                                </a>
+                                                            </h3>
                                                                 <div class="text-muted"><?= esc_html($p['date']); ?></div>
                                                             </div>
                                                         </div>
@@ -171,7 +185,6 @@ Template Name: Tin Tức
         </div>
     </div>
 </div>
-
             </div>
         </section>
     </div>

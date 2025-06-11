@@ -208,13 +208,13 @@
                             </div>
                             <div class="panel-body">
                                 <form action="<?php echo get_permalink(get_page_by_path('tim-kiem-can-bo')); ?>" method="get" role="form">
-                                <div class="form-group">
-                                <label>Họ tên:</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input type="text" value="" name="q" class="form-control" placeholder="Họ tên">
-                                </div>
-                            </div>
+                              <div class="form-group">
+        <label>Họ tên:</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+            <input type="text" value="" name="q" class="form-control" placeholder="Họ tên">
+        </div>
+    </div>
                             <div class="form-group">
                                 <label>Chức vụ:</label>
                                 <div class="input-group">

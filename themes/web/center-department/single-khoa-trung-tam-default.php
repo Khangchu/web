@@ -91,78 +91,83 @@
                         <span class="fa arrow expand" style="margin-top: -36px;"></span>
                         <ul class="collapse in" aria-expanded='false'>
     <?php
-    $terms = get_terms([
-        'taxonomy' => 'khoatrungtam',
-        'hide_empty' => false,
-        'parent' => 0 
-    ]);
-
-    if (!empty($terms) && !is_wp_error($terms)) {
-        foreach ($terms as $term) {
-            $term_link = get_term_link($term);
-            $child_terms = get_terms([
-                'taxonomy' => 'khoatrungtam',
-                'hide_empty' => false,
-                'parent' => $term->term_id
-            ]);
-
-            $check_args = [
-                'post_type' => 'center-department',
-                'posts_per_page' => 5,
-                'orderby' => 'date',
-                'order' => 'ASC',
-                'tax_query' => [
-                    [
-                        'taxonomy' => 'khoatrungtam',
-                        'field' => 'term_id',
-                        'terms' => $term->term_id,
-                        'include_children' => false,
-                    ],
-                ],
-            ];
-            $query = new WP_Query($check_args);
-            $has_posts = $query->have_posts();
-            $li_class = 'custom-metis-sub-item';
-            ?>
-            <li class="<?php echo esc_attr($li_class); ?>">
-                <a id="height-a" title="<?php echo esc_attr($term->name); ?>" href="<?php echo esc_url($term_link); ?>" class="sf-with-ul">
-                            <?php 
-                    if ($term->name === 'Trung tâm Đào tạo thực hành Điện – Điện tử') {
-                        echo 'TTĐTTH Điện – Điện tử';
-                    } else {
-                        echo esc_html($term->name);
-                    }
-                    ?>
-                </a>
-                <?php if (!empty($child_terms) || $has_posts) { ?>
-                    <span id="span-id" class="fa arrow expand" style="margin-top: -36px;"></span>
-                    <ul class="collapse">
-                        <?php
-                        while ($query->have_posts()) {
-                            $query->the_post(); ?>
-                            <li class="custom-metis-sub-item">
-                                <a id="height-a" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" class="sf-with-ul">
-                                    <?php the_title(); ?>
-                                </a>
-                            </li>
-                        <?php }
-                        wp_reset_postdata(); ?>
-
-                        <?php foreach ($child_terms as $child) {
-                            $child_link = get_term_link($child); ?>
-                            <li class="custom-metis-sub-item">
-                                <a id="height-a" title="Nhóm Chuyên môn" href="<?php echo esc_url($child_link); ?>" class="sf-with-ul">
-                                    Nhóm Chuyên môn
-                                </a>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                <?php } ?>
-            </li>
-            <?php
+$current_term_id = 0;
+$current_term_ids = [];
+if (is_tax('khoatrungtam')) {
+    $current_term = get_queried_object();
+    if ($current_term instanceof WP_Term) {
+        $current_term_id = $current_term->term_id;
+    }
+}
+if (is_singular('center-department')) {
+    $terms_of_post = get_the_terms(get_the_ID(), 'khoatrungtam');
+    if (!empty($terms_of_post) && !is_wp_error($terms_of_post)) {
+        $current_term_ids = wp_list_pluck($terms_of_post, 'term_id');
+        foreach ($terms_of_post as $post_term) {
+            if ($post_term->parent && !in_array($post_term->parent, $current_term_ids)) {
+                $current_term_ids[] = $post_term->parent;
+            }
         }
     }
-    ?>
+}
+?>
+
+<?php
+$terms = get_terms([
+    'taxonomy' => 'khoatrungtam',
+    'hide_empty' => false,
+    'parent' => 0,
+]);
+if (!empty($terms) && !is_wp_error($terms)) {
+    foreach ($terms as $term) {
+        $term_link = get_term_link($term);
+        $child_terms = get_terms([
+            'taxonomy' => 'khoatrungtam',
+            'hide_empty' => false,
+            'parent' => $term->term_id
+        ]);
+        $li_class = 'custom-metis-sub-item';
+        if (!empty($child_terms)) {
+            $li_class .= ' active_sub';
+        }
+
+        // Đánh dấu active nếu:
+        // - Là term archive
+        // - Hoặc là term của bài viết
+        if ($term->term_id === $current_term_id || in_array($term->term_id, $current_term_ids)) {
+            $li_class .= ' active2';
+        }
+        ?>
+        <li class="<?php echo esc_attr($li_class); ?>">
+            <a id="height-a" title="<?php echo esc_attr($term->name); ?>" href="<?php echo esc_url($term_link); ?>" class="sf-with-ul">
+                <?php echo esc_html($term->name); ?>
+            </a>
+            <?php if (!empty($child_terms)) { ?>
+                <span id="span-id" class="fa arrow expand" style="margin-top: -36px;"></span>
+                <ul class="collapse">
+                    <?php foreach ($child_terms as $child) {
+                        $child_link = get_term_link($child);
+                        $child_li_class = 'custom-metis-sub-item';
+
+                        if ($child->term_id === $current_term_id || in_array($child->term_id, $current_term_ids)) {
+                            $child_li_class .= ' active2';
+                        }
+                        ?>
+                        <li class="<?php echo esc_attr($child_li_class); ?>">
+                            <a id="height-a" title="<?php echo esc_attr($child->name); ?>" href="<?php echo esc_url($child_link); ?>" class="sf-with-ul">
+                                <?php echo esc_html($child->name); ?>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            <?php } ?>
+        </li>
+        <?php
+    }
+} else {
+    echo '<li>Không có chuyên mục nào trong taxonomy này.</li>';
+}
+?>
 </ul>
 
                     </li>

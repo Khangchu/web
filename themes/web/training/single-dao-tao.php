@@ -14,21 +14,19 @@
                                         <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
                                         <ul class="breadcrumbs list-none"><li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_1"><a href="<?php the_permalink(135)?>"><span>Đào tạo<i class="fa fa-lg fa-angle-right"></i></span></a></li><li id="brcr_2">
                                                                      <?php
-                                            $post_id = get_the_ID();
-                                            $terms = get_the_terms($post_id, 'daotao');
-                                            
-                                            if (!empty($terms) && !is_wp_error($terms)) {
+                                              $term = get_queried_object();
 
-                                                foreach ($terms as $term) {
-                                                    $term_link = get_term_link( $term )
-                                                    ?>
-                                                    <a href="<?php echo esc_url( $term_link )?>"><span><?php echo $term->name?><i class="fa fa-lg fa-angle-right"></i></span></a>
-                                                    <?php
-                                                }
-                                            } else {
-                                                echo 'Bài viết này không có tag nào trong taxonomy này.';
-                                            }
-                                            ?>
+                                                        if (!empty($term) && !is_wp_error($term)) {
+                                                            $term_link = get_term_link($term);
+                                                            ?>
+                                                            <a href="<?php echo esc_url($term_link); ?>">
+                                                                <span><?php echo esc_html($term->name); ?><i class="fa fa-lg fa-angle-right"></i></span>
+                                                            </a>
+                                                            <?php
+                                                        } else {
+                                                            echo '<span>Không có chuyên mục nào.</span>';
+                                                        }
+                                                        ?>
                                         </li></ul>
                                     </div>
                                     </div>
@@ -104,27 +102,84 @@
                                     <ul id="menu_65">
                                         <li class="active">
                                             <ul class="collapse in">
-                                                <?php
-                                                  $args = [
-                                                        'post_type' => 'training',
-                                                           'post__in' => [153,167,169,171,173,178],
-                                                           'orderby' => 'post__in',
-                                                    ];
-                                                     $query = new WP_Query($args);
-                                                        if ($query->have_posts()) {
-                                                            while ($query->have_posts()) {
-                                                                $query->the_post();
-                                                                ?>
-                                                                <li class="custom-metis-sub-item ">
-                                                                <a id="height-a" title="<?php echo get_the_title() ?>" href="<?php echo get_permalink()?>" class="sf-with-ul"><?php echo get_the_title() ?></a>
-                                                                </li>
-                                                            <?php
-                                                            }
-                                                            wp_reset_postdata();
-                                                        } else {
-                                                            echo 'Không có trang nào dùng template này.';
-                                                        }
-                                                ?>
+                                                 <?php
+$current_term_id = 0;
+$current_term_ids = [];
+if (is_tax('daotao')) {
+    $current_term = get_queried_object();
+    if ($current_term instanceof WP_Term) {
+        $current_term_id = $current_term->term_id;
+    }
+}
+if (is_singular('training')) {
+    $terms_of_post = get_the_terms(get_the_ID(), 'daotao');
+    if (!empty($terms_of_post) && !is_wp_error($terms_of_post)) {
+        $current_term_ids = wp_list_pluck($terms_of_post, 'term_id');
+        foreach ($terms_of_post as $post_term) {
+            if ($post_term->parent && !in_array($post_term->parent, $current_term_ids)) {
+                $current_term_ids[] = $post_term->parent;
+            }
+        }
+    }
+}
+?>
+
+<?php
+$terms = get_terms([
+    'taxonomy' => 'daotao',
+    'hide_empty' => false,
+    'parent' => 0,
+]);
+if (!empty($terms) && !is_wp_error($terms)) {
+    foreach ($terms as $term) {
+        $term_link = get_term_link($term);
+        $child_terms = get_terms([
+            'taxonomy' => 'daotao',
+            'hide_empty' => false,
+            'parent' => $term->term_id
+        ]);
+        $li_class = 'custom-metis-sub-item';
+        if (!empty($child_terms)) {
+            $li_class .= ' active_sub';
+        }
+
+        // Đánh dấu active nếu:
+        // - Là term archive
+        // - Hoặc là term của bài viết
+        if ($term->term_id === $current_term_id || in_array($term->term_id, $current_term_ids)) {
+            $li_class .= ' active2';
+        }
+        ?>
+        <li class="<?php echo esc_attr($li_class); ?>">
+            <a id="height-a" title="<?php echo esc_attr($term->name); ?>" href="<?php echo esc_url($term_link); ?>" class="sf-with-ul">
+                <?php echo esc_html($term->name); ?>
+            </a>
+            <?php if (!empty($child_terms)) { ?>
+                <span id="span-id" class="fa arrow expand" style="margin-top: -36px;"></span>
+                <ul class="collapse">
+                    <?php foreach ($child_terms as $child) {
+                        $child_link = get_term_link($child);
+                        $child_li_class = 'custom-metis-sub-item';
+
+                        if ($child->term_id === $current_term_id || in_array($child->term_id, $current_term_ids)) {
+                            $child_li_class .= ' active2';
+                        }
+                        ?>
+                        <li class="<?php echo esc_attr($child_li_class); ?>">
+                            <a id="height-a" title="<?php echo esc_attr($child->name); ?>" href="<?php echo esc_url($child_link); ?>" class="sf-with-ul">
+                                <?php echo esc_html($child->name); ?>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            <?php } ?>
+        </li>
+        <?php
+    }
+} else {
+    echo '<li>Không có chuyên mục nào trong taxonomy này.</li>';
+}
+?>
                                             </ul>
                                         </li>
                                     </ul>

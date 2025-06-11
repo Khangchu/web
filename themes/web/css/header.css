@@ -457,22 +457,12 @@ body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.42857;
-    background-color: #eeeeee;
+    background-color: #FDFAFB;
 }
 .main-header {
     position: absolute;
     z-index: 12;
     width: 100%;
-}
-.custom-gradient {
-    background: -moz-linear-gradient(top, rgba(36,121,248,1) 0%,rgba(36,121,248,1) 29%,rgba(36,121,248,0.98) 30%,rgba(36,121,248,0.93) 39%,rgba(36,121,248,0.88) 49%,rgba(36,121,248,0.76) 59%,rgba(36,121,248,0.28) 79%,rgba(36,121,248,0.02) 89%,rgba(36,121,248,0) 100%);
-    /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(36,121,248,1) 0%,rgba(36,121,248,1) 29%,rgba(36,121,248,0.98) 30%,rgba(36,121,248,0.93) 39%,rgba(36,121,248,0.88) 49%,rgba(36,121,248,0.76) 59%,rgba(36,121,248,0.28) 79%,rgba(36,121,248,0.02) 89%,rgba(36,121,248,0) 100%);
-    /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(36,121,248,1) 0%,rgba(36,121,248,1) 29%,rgba(36,121,248,0.98) 30%,rgba(36,121,248,0.93) 39%,rgba(36,121,248,0.88) 49%,rgba(36,121,248,0.76) 59%,rgba(36,121,248,0.28) 79%,rgba(36,121,248,0.02) 89%,rgba(36,121,248,0) 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2479F8', endColorstr='#2479F8',GradientType=0 );
-    /* IE6-9*/
 }
 .main-header ul.slimmenu{
     background-color: transparent !important;
@@ -707,6 +697,7 @@ body {
     opacity: 1;
 }
 .main-header.sticky {
+    background: none !important;
     position: fixed !important;
     height: auto;
     -webkit-transition: all 0.5s ease;
@@ -733,20 +724,16 @@ body {
     color: #393637;
 }
 #footer {
-    border-bottom-color: #d9d9d8;
-    background-color: #d9d9d8;
-    background-image: none;
-    border-top-color: #d9d9d8;
+    border-bottom-color: #d9d9d8 !important;
+    background-color: #d9d9d8 !important;
+    background-image: none !important;
+    border-top-color: #d9d9d8 !important;
 }
 .section-footer-top .panel-default {
     border-color: transparent;
     background-color: transparent;
     -webkit-box-shadow: none;
     box-shadow: none;
-}
-.padding-style .panel-default .panel-heading, .padding-style .panel-default .panel-body
-    {
-    padding-left: 0px;
 }
 .section-footer-top .panel-default>.panel-heading {
     background-color: transparent;
@@ -875,12 +862,6 @@ iframe {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-.section-footer-top .panel-default {
-    border-color: transparent;
-    background-color: transparent;
-    -webkit-box-shadow: none;
-    box-shadow: none;
 }
 .menu_footer ul li {
     margin-bottom: 7px;
@@ -1015,7 +996,19 @@ ul.slimmenu .has-submenu .sub-toggle {
 
 ul.slimmenu > li:hover > a {
     background-color: transparent !important;
+    
+}
+div.v2 >.slimmenu > li:hover > a {
+    background-color: transparent !important;
     color: red !important;
+}
+div.v2 >.slimmenu > li:active {
+    background-color: transparent !important;
+}
+
+ul.slimmenu > li:active {
+    background-color: transparent !important;
+
 }
 ul.slimmenu .has-submenu  .sub-menu > li:hover > a {
     color: red !important;
@@ -1799,4 +1792,58 @@ figure.table td, figure.table th {
 }
 .tree > ul > li::before, .tree > ul > li::after {
     border: 0;
+}
+
+.div-position {
+    position: relative; /* Đặt .div-position làm tham chiếu định vị */
+}
+
+.div-position .slide-text {
+    position: absolute; /* Cho phép sử dụng top, left, right, bottom */
+    top: auto !important;
+    left: auto !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 50px;
+    width: 500px;
+    text-align: right;
+    display: inline-block;
+    font-family: 'LinhAvantGarde';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: normal;
+    color: #fff;
+    padding-top: 15px;
+    padding-right: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 5%;
+}
+#body {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    border: 0 !important;
+    background-color: #fffbfb !important;
+}
+.panel-body {
+    width: 100%;
+    overflow: hidden; /* Đảm bảo nội dung không tràn ra ngoài */
+}
+
+.panel-body span {
+    font-family: 'Arial', sans-serif; /* Font không chân */
+    font-size: 16px;
+    white-space: nowrap; /* Ngăn ngắt dòng */
+    display: inline-block; /* Đảm bảo span không bị ảnh hưởng bởi các phần tử khác */
+}
+.slimmenu .current > a{
+    color: #f00 !important;
+}
+.has-submenu.current {
+    background-color: transparent !important;
+}
+ul.slimmenu li a:hover, ul.slimmenu li a:focus, ul.slimmenu li.current {
+    background-color: transparent !important;
+    text-decoration: none;
 }

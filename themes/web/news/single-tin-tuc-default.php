@@ -211,35 +211,76 @@
                                             <ul id="menu_65">
                                                                     <li class="active">
                                                                                 <ul class="collapse in">
-                                                        <?php
-                                                    $terms = get_terms([
-                                                        'taxonomy' => 'tintuc',
-                                                        'hide_empty' => false,
-                                                        'number' => 5,
-                                                    ]);
-                                                    if (!empty($terms) && !is_wp_error($terms)) {
-                                                        foreach ($terms as $term) {
-                                                            $term_link = get_term_link( $term )
-                                                           ?>
-                                                             <li class="custom-metis-sub-item active_sub ">
-                                    <a id="height-a" title="<?php echo $term->name?>" href="<?php echo esc_url( $term_link )?>" class="sf-with-ul"><?php echo $term->name?></a>
-                                                        </li>
-                                                           <?php
-                                                        }
-                                                    } else {
-                                                        echo 'Bài viết này không có tag nào trong taxonomy này.';
-                                                    }
-                                                    ?>
+                                                       <?php
+                        $current_term_id = 0;
+                        if (is_tax('tintuc')) {
+                            $current_term = get_queried_object();
+                            if ($current_term instanceof WP_Term) {
+                                $current_term_id = $current_term->term_id;
+                            }
+                        }
+                        ?>
+
+                        <?php
+                        $terms = get_terms([
+                            'taxonomy' => 'tintuc',
+                            'hide_empty' => false,
+                            'parent' => 0,
+                        ]);
+                        if (!empty($terms) && !is_wp_error($terms)) {
+                            foreach ($terms as $term) {
+                                $term_link = get_term_link($term);
+                                $child_terms = get_terms([
+                                    'taxonomy' => 'tintuc',
+                                    'hide_empty' => false,
+                                    'parent' => $term->term_id
+                                ]);
+                                $li_class = 'custom-metis-sub-item';
+                                if (!empty($child_terms)) {
+                                    $li_class .= ' active_sub';
+                                }
+                                if ($term->term_id === $current_term_id) {
+                                    $li_class .= ' active';
+                                }
+                                ?>
+                                <li class="<?php echo esc_attr($li_class); ?>">
+                                    <a id="height-a" title="<?php echo esc_attr($term->name); ?>" href="<?php echo esc_url($term_link); ?>" class="sf-with-ul">
+                                        <?php echo esc_html($term->name); ?>
+                                    </a>
+                                    <?php if (!empty($child_terms)) { ?>
+                                        <span id="span-id" class="fa arrow expand" style="margin-top: -36px;"></span>
+                                        <ul class="collapse">
+                                            <?php foreach ($child_terms as $child) {
+                                                $child_link = get_term_link($child);
+                                                $child_li_class = 'custom-metis-sub-item';
+                                                if ($child->term_id === $current_term_id) {
+                                                    $child_li_class .= ' active';
+                                                }
+                                                ?>
+                                                <li class="<?php echo esc_attr($child_li_class); ?>">
+                                                    <a id="height-a" title="<?php echo esc_attr($child->name); ?>" href="<?php echo esc_url($child_link); ?>" class="sf-with-ul">
+                                                        <?php echo esc_html($child->name); ?>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                        </ul>
+                                    <?php } ?>
+                                </li>
+                                <?php
+                            }
+                        } else {
+                            echo '<li>Không có chuyên mục nào trong taxonomy này.</li>';
+                        }
+                        ?>
 
                                               
-                                
-                                                        </ul>
-                                                    </li>
-                                            </ul>
-                                        </nav>
-                                    </aside>
-                                </div>
-                        </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+        </div>
                 </div>
                 <div class="row"></div>
             </div>

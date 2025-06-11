@@ -3,6 +3,11 @@
 Template Name: Sinh viên
 */
 ?>
+<?php
+$term = get_term_by('id', 62, 'sinhvien');
+ wp_redirect(get_term_link($term));
+ exit;
+?>
 <?php get_header("v2")?>
 <div class="section-banner">
     </div>

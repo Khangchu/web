@@ -3,6 +3,10 @@
 Template Name: Đào Tạo
 */
 ?>
+<?php
+ wp_redirect(get_permalink(153));
+ exit;
+?>
 <?php get_header("v2")?>
 <div class="section-banner">
     </div>

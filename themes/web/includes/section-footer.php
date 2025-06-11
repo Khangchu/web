@@ -6,7 +6,7 @@
                 <div class="col-xs-24 col-sm-24 col-md-7 padding-style">
                     <div class="panel panel-default">
                         <div class="panel-heading">Bản đồ chỉ dẫn</div>
-                        <div class="panel-body" style="padding-left: 15px;">
+                        <div class="panel-body">
                         <span style="font-size:16px;">Trường Điện - Điện tử ĐH Bách Khoa Hà Nội</span>
                         <br>
                         <iframe allow="autoplay" allowfullscreen="" frameborder="0" height="130" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-same-origin" scrolling="no" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1809.3259883834749!2d105.84095104716604!3d21.005201460722592!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ad591575f7bb%3A0x28c483c5b1697381!2zxJDhuqFpIEjhu41jIELDoWNoIEtob2EgSMOgIE7hu5lpIEPhu5VuZyBQYXJhYm9s!5e0!3m2!1svi!2s!4v1666925153384!5m2!1svi!2s" style="border:0;" width="200"></iframe>

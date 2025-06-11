@@ -3,6 +3,11 @@
 Template Name: Tuyển sinh 
 */
 ?>
+<?php
+$term = get_term_by('id', 21, 'tuyensinh');
+ wp_redirect(get_term_link($term));
+ exit;
+?>
 <?php get_header("v2")?>
 <div class="section-body">
     <div>

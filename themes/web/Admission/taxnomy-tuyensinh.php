@@ -58,11 +58,13 @@
                     <div class="col-sm-16 col-md-18 col-sm-push-8 col-md-push-6">
                         <div class="news_column">
                             <?php
+                             $paged = (isset($_GET['trang']) && is_numeric($_GET['trang'])) ? (int) $_GET['trang'] : 1;
                             $term = get_queried_object();
 
                             $args = [
                                 'post_type' => 'admissions',
-                                'posts_per_page' => -1,
+                                'posts_per_page' => 5,
+                                'paged' => $paged,
                                 'tax_query' => [
                                     [
                                         'taxonomy' => 'tuyensinh',
@@ -101,9 +103,41 @@
                             } else {
                                 echo '<p class="alert alert-info">Không có bài viết nào trong chuyên mục này.</p>';
                             }
-
-                            wp_reset_postdata();
                             ?>
+                            <div class="clearfix"></div>
+  <?php
+        $pagination_links = paginate_links([
+            'base' => add_query_arg('trang', '%#%'),
+            'format' => '',
+            'current' => $paged,
+            'total' => $query->max_num_pages,
+            'type' => 'array',
+            'prev_text' => '«',
+            'next_text' => '»',
+        ]);
+
+        if (!empty($pagination_links)) {
+            echo '<div class="text-center"><ul class="pagination">';
+            foreach ($pagination_links as $link) {
+                if (strpos($link, 'current') !== false) {
+                    echo '<li class="active">' . str_replace('page-numbers', '', $link) . '</li>';
+                } elseif (strpos($link, 'dots') !== false) {
+                    echo '<li class="disabled">' . str_replace('page-numbers dots', '', $link) . '</li>';
+                } elseif (strpos($link, '«') !== false || strpos($link, '»') !== false) {
+                    if (strpos($link, 'href') !== false) {
+                        echo '<li>' . str_replace('page-numbers', '', $link) . '</li>';
+                    } else {
+                        echo '<li class="disabled"><a href="javascript:void(0)">' . strip_tags($link) . '</a></li>';
+                    }
+                } else {
+                    echo '<li>' . str_replace('page-numbers', '', $link) . '</li>';
+                }
+            }
+            echo '</ul></div>';
+        }
+
+        wp_reset_postdata();?>
+
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-6 col-sm-pull-16 col-md-pull-18 css-left">
@@ -113,88 +147,85 @@
                                     <ul id="menu_65">
                                         <li class="active">
                                             <ul class="collapse in">
-                                                <?php
-                                                $terms = get_terms([
-                                                    'taxonomy' => 'tuyensinh',
-                                                    'hide_empty' => false,
-                                                    
-                                                ]);
+                                                 <?php
+$current_term_id = 0;
+$current_term_ids = [];
+if (is_tax('tuyensinh')) {
+    $current_term = get_queried_object();
+    if ($current_term instanceof WP_Term) {
+        $current_term_id = $current_term->term_id;
+    }
+}
+if (is_singular('admissions')) {
+    $terms_of_post = get_the_terms(get_the_ID(), 'tuyensinh');
+    if (!empty($terms_of_post) && !is_wp_error($terms_of_post)) {
+        $current_term_ids = wp_list_pluck($terms_of_post, 'term_id');
+        foreach ($terms_of_post as $post_term) {
+            if ($post_term->parent && !in_array($post_term->parent, $current_term_ids)) {
+                $current_term_ids[] = $post_term->parent;
+            }
+        }
+    }
+}
+?>
 
-                                                if (!empty($terms) && !is_wp_error($terms)) {
-                                                    foreach ($terms as $term) {
-                                                        $term_link = get_term_link($term);
+<?php
+$terms = get_terms([
+    'taxonomy' => 'tuyensinh',
+    'hide_empty' => false,
+    'parent' => 0,
+]);
+if (!empty($terms) && !is_wp_error($terms)) {
+    foreach ($terms as $term) {
+        $term_link = get_term_link($term);
+        $child_terms = get_terms([
+            'taxonomy' => 'tuyensinh',
+            'hide_empty' => false,
+            'parent' => $term->term_id
+        ]);
+        $li_class = 'custom-metis-sub-item';
+        if (!empty($child_terms)) {
+            $li_class .= ' active_sub';
+        }
 
-                                                        $check_args = [
-                                                            'post_type' => 'admissions',
-                                                            'posts_per_page' => 1,
-                                                            'tax_query' => [
-                                                                [
-                                                                    'taxonomy' => 'tuyensinh',
-                                                                    'field' => 'slug',
-                                                                    'terms' => $term->slug,
-                                                                ],
-                                                            ],
-                                                        ];
+        // Đánh dấu active nếu:
+        // - Là term archive
+        // - Hoặc là term của bài viết
+        if ($term->term_id === $current_term_id || in_array($term->term_id, $current_term_ids)) {
+            $li_class .= ' active2';
+        }
+        ?>
+        <li class="<?php echo esc_attr($li_class); ?>">
+            <a id="height-a" title="<?php echo esc_attr($term->name); ?>" href="<?php echo esc_url($term_link); ?>" class="sf-with-ul">
+                <?php echo esc_html($term->name); ?>
+            </a>
+            <?php if (!empty($child_terms)) { ?>
+                <span id="span-id" class="fa arrow expand" style="margin-top: -36px;"></span>
+                <ul class="collapse">
+                    <?php foreach ($child_terms as $child) {
+                        $child_link = get_term_link($child);
+                        $child_li_class = 'custom-metis-sub-item';
 
-                                                        $term_query = new WP_Query($check_args);
-                                                        $has_posts = $term_query->have_posts();
+                        if ($child->term_id === $current_term_id || in_array($child->term_id, $current_term_ids)) {
+                            $child_li_class .= ' active2';
+                        }
+                        ?>
+                        <li class="<?php echo esc_attr($child_li_class); ?>">
+                            <a id="height-a" title="<?php echo esc_attr($child->name); ?>" href="<?php echo esc_url($child_link); ?>" class="sf-with-ul">
+                                <?php echo esc_html($child->name); ?>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            <?php } ?>
+        </li>
+        <?php
+    }
+} else {
+    echo '<li>Không có chuyên mục nào trong taxonomy này.</li>';
+}
+?>
 
-                                                        $li_class = 'custom-metis-sub-item';
-                                                        if ($has_posts) {
-                                                            $li_class .= ' active_sub';
-                                                        }
-                                                        ?>
-                                                        <li class="<?php echo esc_attr($li_class); ?>">
-                                                            <a id="height-a" title="<?php echo esc_attr($term->name); ?>" href="<?php echo esc_url($term_link); ?>" class="sf-with-ul">
-                                                                <?php echo esc_html($term->name); ?>
-                                                            </a>
-                                                            <?php if ($has_posts){ ?>
-                                                                <span id="span-id" class="fa arrow expand" style="margin-top: -52px;"></span>
-                                                                <ul class = "collapse">
-                                                                                            <?php
-                                                                                                        $term = get_queried_object();
-                                                                            
-                                                                                                        $args = [
-                                                                                                            'post_type' => 'admissions',
-                                                                                                            'posts_per_page' => -1,
-                                                                                                            'tax_query' => [
-                                                                                                                [
-                                                                                                                    'taxonomy' => 'tuyensinh',
-                                                                                                                    'field' => 'slug',
-                                                                                                                    'terms' => $term->slug,
-                                                                                                                ],
-                                                                                                            ],
-                                                                                                        ];
-                                                                            
-                                                                                                        $query = new WP_Query($args);
-                                                                            
-                                                                                                        if ($query->have_posts()) {
-                                                                                                            while ($query->have_posts()) {
-                                                                                                                echo '<li class="custom-metis-sub-item ">';
-                                                                                                                $query->the_post();
-                                                                                                                ?>
-                                                                                                                 <a id="height-a" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" class="sf-with-ul">
-                                                                                                                 <?php the_title(); ?>
-                                                                                                                        </a>
-                                                                                                            
-                                                                                                                <?php 
-                                                                                                                 echo '</li>';
-                                                                                                            }
-                                                                                                          
-                                                                                                        } 
-                                                                            
-                                                                                                        wp_reset_postdata();
-                                                                                                        ?>
-                                                                </ul>
-                                                            <?php } ?>
-                                                        </li>
-                                                        <?php
-                                                        wp_reset_postdata();
-                                                    }
-                                                } else {
-                                                    echo '<li>Không có chuyên mục nào trong taxonomy này.</li>';
-                                                }
-                                                ?>
                                             </ul>
                                         </li>
                                     </ul>

@@ -38,41 +38,45 @@
                 <div class="col-md-12">
                     <div class="featured-post">
                         <div class="item">
-                            <?php
-$url = get_field('main-featured-slide');
+<?php
+$link_field = get_field('main-featured-slide'); 
+$slug = basename(parse_url($link_field, PHP_URL_PATH));
+$query = new WP_Query([
+    'name' => $slug,
+    'post_type' => ['tin','training','admissions','examine','center-department','support','student','alumni','workcalendar','teamofofficials','anh','video','introduction'],
+    'posts_per_page' => 1,
+]);
 
-if ($url) {
-    $post_id = url_to_postid($url);
+if ($query->have_posts()) {
+    $query->the_post();
+    $post_id = get_the_ID();
+    $permalink = get_permalink($post_id);
+    $title = get_the_title($post_id);
+    $thumbnail = get_the_post_thumbnail_url($post_id);
 
-    if ($post_id) {
-        $title = get_the_title($post_id);
-        $permalink = get_permalink($post_id);
-        $thumbnail = get_the_post_thumbnail_url($post_id);
-
-        if (!$thumbnail) {
-            $thumbnail = get_template_directory_uri() . '/img/temp.jpg'; // fallback ảnh mặc định
-        }
-        ?>
-        <div class="item-content">
-            <div class="height-news img-hover-zoom">
-                <a href="<?php echo esc_url($permalink); ?>" class="img" style="background-image: url('<?php echo esc_url($thumbnail); ?>');">
-                    <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($title); ?>">
-                </a>
-            </div>
-            <div class="item-inner css-items">
-                <h3>
-                    <a href="<?php echo esc_url($permalink); ?>" title="<?php echo esc_attr($title); ?>">
-                        <?php echo esc_html($title); ?>
-                    </a>
-                </h3>
-            </div>
-        </div>
-        <?php
-    } else {
-        echo '<p>Không tìm thấy bài viết tương ứng với URL này.</p>';
+    if (!$thumbnail) {
+        $thumbnail = get_template_directory_uri() . '/img/temp.jpg'; 
     }
+
+    ?>
+    <div class="item-content">
+        <div class="height-news img-hover-zoom">
+            <a href="<?php echo esc_url($permalink); ?>" class="img" style="background-image: url('<?php echo esc_url($thumbnail); ?>');">
+                <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($title); ?>">
+            </a>
+        </div>
+        <div class="item-inner css-items">
+            <h3>
+                <a href="<?php echo esc_url($permalink); ?>" title="<?php echo esc_attr($title); ?>">
+                    <?php echo esc_html($title); ?>
+                </a>
+            </h3>
+        </div>
+    </div>
+    <?php
+    wp_reset_postdata();
 } else {
-    echo '<p>Chưa có URL được nhập.</p>';
+    echo '<p>⚠️ Không tìm thấy bài viết từ slug hoặc URL. Kiểm tra lại dữ liệu trong ACF.</p>';
 }
 ?>
 
@@ -84,38 +88,56 @@ if ($url) {
                         <div class="row">
 <div class="col-md-12">
   <div class="double-slider">
-    <?php
-    $group1 = get_field('secondary-featured-list');
-    if (!empty($group1) && is_array($group1)) :
-        $chunks = array_chunk($group1, 2); // Gộp mỗi 2 bài
-        foreach ($chunks as $chunk) :
-    ?>
-      <div class="slider-item"> <!-- Mỗi slider-item chứa 2 bài -->
+ <?php
+$group1 = get_field('secondary-featured-list');
+if (!empty($group1) && is_array($group1)) :
+    $chunks = array_chunk($group1, 2);
+    foreach ($chunks as $chunk) :
+?>
+    <div class="slider-item">
         <?php foreach ($chunk as $url) :
-            $post_id = url_to_postid($url);
-            if ($post_id && get_post_status($post_id)) :
+            $parsed_url = parse_url($url, PHP_URL_PATH);
+            $slug = basename($parsed_url);
+            $query_args = [
+                'name' => $slug,
+                'post_type' =>  ['tin','training','admissions','examine','center-department','support','student','alumni','workcalendar','teamofofficials','anh','video','introduction'],
+                'posts_per_page' => 1,
+                'post_status' => 'publish',
+            ];
+
+            $query = new WP_Query($query_args);
+
+            if ($query->have_posts()) :
+                $query->the_post();
+                $post_id = get_the_ID();
                 $title = get_the_title($post_id);
-                $permalink = get_permalink($post_id);
+                $permalink = get_permalink($post_id); 
                 $thumbnail = get_the_post_thumbnail_url($post_id, 'medium_large');
+
                 if (!$thumbnail) {
                     $thumbnail = get_template_directory_uri() . '/img/temp.jpg';
                 }
         ?>
-          <div class="item-content">
-            <a href="<?php echo esc_url($permalink); ?>" class="img" style="background-image: url('<?php echo esc_url($thumbnail); ?>');">
-              <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($title); ?>">
-            </a>
-            <div class="item-inner custom-gradient-bt">
-              <h3>
-                <a href="<?php echo esc_url($permalink); ?>" title="<?php echo esc_attr($title); ?>">
-                  <?php echo esc_html($title); ?>
-                </a>
-              </h3>
-            </div>
-          </div>
-        <?php endif; endforeach; ?>
-      </div>
-    <?php endforeach; endif; ?>
+                <div class="item-content">
+                    <a href="<?php echo esc_url($permalink); ?>" class="img" style="background-image: url('<?php echo esc_url($thumbnail); ?>');">
+                        <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($title); ?>">
+                    </a>
+                    <div class="item-inner custom-gradient-bt">
+                        <h3>
+                            <a href="<?php echo esc_url($permalink); ?>" title="<?php echo esc_attr($title); ?>">
+                                <?php echo esc_html($title); ?>
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+        <?php
+                wp_reset_postdata();
+            else :
+                echo '<p>⚠️ Không tìm thấy bài viết từ URL: ' . esc_url($url) . '</p>';
+            endif;
+        endforeach; ?>
+    </div>
+<?php endforeach; endif; ?>
   </div>
 </div>
 
@@ -124,36 +146,56 @@ if ($url) {
                             <div class="col-md-12">
                                 <div class="non-slider">
 <?php
-$group = get_field('recent-news-list');
+$group = get_field('recent-news-list'); // Lấy danh sách URL từ ACF
 
 if ($group && is_array($group)) {
     foreach ($group as $key => $link) {
         if ($link) {
+            // Debug: xem URL
+            // var_dump($link);
 
-            $post_id = url_to_postid($link);
-            if ($post_id) {
-                $post = get_post($post_id);
-                if ($post) {
-                    ?>
-                    <div class="item">
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <h3><a href="<?php echo esc_url($link); ?>" title="<?php echo esc_attr(get_the_title($post)); ?>">
-                                    <?php echo esc_html(get_the_title($post)); ?>
-                                </a></h3>
-                            </div>
+            // Lấy slug từ URL
+            $parsed_url = parse_url($link, PHP_URL_PATH);
+            $slug = basename($parsed_url);
+
+            // Tìm post ID từ slug với nhiều post type
+            $query_args = [
+                'name' => $slug, // Tìm bài viết theo slug
+                'post_type' =>  ['tin','training','admissions','examine','center-department','support','student','alumni','workcalendar','teamofofficials','anh','video','introduction'], // Thay bằng danh sách post type của bạn
+                'posts_per_page' => 1,
+                'post_status' => 'publish',
+            ];
+
+            $query = new WP_Query($query_args);
+
+            if ($query->have_posts()) {
+                $query->the_post();
+                $post_id = get_the_ID();
+                $title = get_the_title($post_id);
+                $permalink = get_permalink($post_id); // TranslatePress sẽ xử lý URL đa ngôn ngữ
+                ?>
+                <div class="item">
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <h3>
+                                <a href="<?php echo esc_url($permalink); ?>" title="<?php echo esc_attr($title); ?>">
+                                    <?php echo esc_html($title); ?>
+                                </a>
+                            </h3>
                         </div>
                     </div>
-                    <?php
-                }
+                </div>
+                <?php
+                wp_reset_postdata();
+            } else {
+                echo '<p>⚠️ Không tìm thấy bài viết từ URL: ' . esc_url($link) . '</p>';
             }
         }
     }
 } else {
-    echo 'Không tìm thấy nhóm field.';
+    echo '<p>⚠️ Không tìm thấy nhóm field recent-news-list hoặc dữ liệu không hợp lệ.</p>';
 }
 ?>
-
                                 </div>
                             </div>
                         </div>
@@ -252,9 +294,9 @@ jQuery(document).ready(function($) {
       slidesToShow: 1,
       slidesToScroll: 1,
       dots: true,
-        arrows: false,
+      arrows: false,
       autoplay: true,
-      autoplaySpeed: 2000,
+      autoplaySpeed: 5000,
       responsive: [
         {
           breakpoint: 992,
@@ -269,19 +311,36 @@ jQuery(document).ready(function($) {
           }
         }
       ]
+    })
+    .on('init', function(event, slick){
+      // Thêm hiệu ứng animate__fadeInRight cho slide đầu tiên
+      var currentSlide = slick.$slides.eq(0);
+      currentSlide.find('.slide-text')
+                  .addClass('animate__fadeInRight');
+    })
+    .on('beforeChange', function(event, slick, currentSlide, nextSlide){
+      // Xóa hiệu ứng animate__fadeInRight khỏi tất cả các slide trước khi chuyển
+      slick.$slides.find('.slide-text')
+                   .removeClass('animate__fadeInRight');
+    })
+    .on('afterChange', function(event, slick, currentSlide){
+      // Thêm hiệu ứng animate__fadeInRight cho slide hiện tại
+      slick.$slides.eq(currentSlide)
+                   .find('.slide-text')
+                   .addClass('animate__fadeInRight');
     });
 
     $context.find('.show-slider-mobile').not('.slick-initialized').slick({
       slidesToShow: 1,
       slidesToScroll: 1,
-        arrows: false,
+      arrows: false,
     });
   }
 
-  // KHỞI TẠO CHO SLIDER ĐANG HIỂN THỊ
+  // Khởi tạo slider cho tài liệu
   initSlickSlider($(document));
 
-  // Nếu bạn có cơ chế tab khác dùng slick
+  // Xử lý chuyển đổi tab
   $('[data-toggle="newtabslide"]').on('click', function(e) {
     e.preventDefault();
     var target = $(this).attr('href');
@@ -292,4 +351,5 @@ jQuery(document).ready(function($) {
     initSlickSlider($(target));
   });
 });
+
 </script>

@@ -27,28 +27,34 @@
                 <div id="header">
                     <div class="logo">
                         <div class="test-site">
-                            <a href="/index.php" title ="Trường Điện - Điện tử">
+                            <?php
+                               $home_url = function_exists('trp_get_translated_home_url') 
+                                    ? trp_get_translated_home_url() // Hàm của TranslatePress
+                                    : home_url('/'); // Fallback nếu không có TranslatePress
+                            ?>
+                            <a href="<?php echo esc_url($home_url); ?>" title ="Trường Điện - Điện tử">
                                 <?php
+                                
                                 $header_page_id = 1047
                                 ?>
                                 <img src='<?php echo get_field('logo', $header_page_id)['url'] ?>' alt="Trường Điện - Điện tử"></a>
                             <ul class="text-sologan">
                                 <li class="bo">
-                                    <a href="/index.php">Đại học Bách khoa Hà Nội</a>
+                                    <a href="<?php echo esc_url($home_url); ?>">Đại học Bách khoa Hà Nội</a>
                                 </li>
                                 <li class="cuc">
-                                    <a href="/index.php">Trường Điện - Điện tử</a>
+                                    <a href="<?php echo esc_url($home_url); ?>">Trường Điện - Điện tử</a>
                                 </li>
                             </ul>
                             <ul class="text-modile">
                                     <li class="dong">
-                                    <a href="/index.php">Đại học</a>
+                                    <a href="<?php echo esc_url($home_url); ?>">Đại học</a>
                                 </li>
                                     <li class="dong">
-                                <a href="/index.php">Bách khoa Hà Nội</a>
+                                <a href="<?php echo esc_url($home_url); ?>">Bách khoa Hà Nội</a>
                                 </li>
                                     <li class="line">
-                                <a href="/index.php">Trường Điện - Điện tử</a>
+                                <a href="<?php echo esc_url($home_url); ?>">Trường Điện - Điện tử</a>
                                 </li>
                             </ul>
                         </div>
@@ -105,8 +111,21 @@
                     </div>
                     <div class="languages">
                         <div class="language">
-                            <!-- <a href="" class="active" title= "Tiếng việt" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/vi.png');"></a>
-                            <a href=""  title= "English" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/en.png');"></a> -->
+                            <a href="/index.php" class="active" title= "Tiếng việt" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/vi.png');"></a>
+                           <?php
+                        $current_url = home_url(add_query_arg([], $_SERVER['REQUEST_URI']));
+                        $english_url = '';
+                        if (function_exists('trp_get_url_for_language')) {
+                            $english_url = trp_get_url_for_language('en_US', $current_url);
+                        } else {
+                            $english_url = str_replace('/vi/', '/en/', $current_url);
+                            if ($current_url === home_url('/')) {
+                                $english_url = home_url('/en/');
+                            }
+                        }
+                        ?>
+
+                        <a href="<?php echo esc_url($english_url); ?>" title="English" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/img/en.png'); ?>');"></a>
 
                         </div>
                     </div>

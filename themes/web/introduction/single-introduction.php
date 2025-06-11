@@ -101,64 +101,71 @@ if(have_posts(  )){
                             <aside class="sidebar">
                                 <nav class="sidebar-nav">
                                     <ul class="menu_56">
-                                        <li class="current">
-                                            <a href="<?php the_permalink(517)?>" title ="<?php echo get_the_title(517)?>"><?php echo get_the_title(517)?></a>
-                                            <span class="fa arrow expand" style="margin-top: -36px;"></span>
-                                            <ul class="collapse" aria-expanded="false" style="height: 0px;">
-                                            <?php
-                                    $args = [
-                                        'post_type' => 'introduction',
-                                        'post__not_in' => [517,507],
-                                        'post__in' => [529,531,505,513,501],
-                                        'posts_per_page' => -1,
-                                    ];
-                                    
-                                    $query = new WP_Query($args);
-                                    if ($query->have_posts()) {
-                                        while ($query->have_posts()) {
-                                            $query->the_post();
-                                            ?>
-                                            <li class="custom-metis-sub-item ">
-                                            <a id="height-a" title="<?php echo get_the_title() ?>" href="<?php echo get_permalink()?>" class="sf-with-ul"><?php echo get_the_title() ?></a>
-                                            </li>
-                                        <?php
-                                        }
-                                        wp_reset_postdata();
-                                    } else {
-                                        echo 'Không có trang nào dùng template này.';
-                                    }
-                                    ?>
-                                            </ul>
-                                        </li>
-                                        <li class="">
-                                            <a href="<?php the_permalink(507)?>" title= "<?php echo get_the_title(507)?>"><?php echo get_the_title(507)?></a>
-                                            <span class="fa arrow expand" style="margin-top: -36px;"></span>
-                                            <ul class="collapse" aria-expanded="false" style="height: 0px;">
-                                            <?php
-                                    $args = [
-                                        'post_type' => 'introduction',
-                                       'post__not_in' => [517,507],
-                                        'post__in' => [511,521,499,523,533,503,515],
-                                        'posts_per_page' => -1,
-                                    ];
-                                    
-                                    $query = new WP_Query($args);
-                                    if ($query->have_posts()) {
-                                        while ($query->have_posts()) {
-                                            $query->the_post();
-                                            ?>
-                                            <li class="custom-metis-sub-item ">
-                                            <a id="height-a" title="<?php echo get_the_title() ?>" href="<?php echo get_permalink()?>" class="sf-with-ul"><?php echo get_the_title() ?></a>
-                                            </li>
-                                        <?php
-                                        }
-                                        wp_reset_postdata();
-                                    } else {
-                                        echo 'Không có trang nào dùng template này.';
-                                    }
-                                    ?>
-                                            </ul>
-                                        </li>
+                                <?php
+// Lấy ID bài viết hiện tại
+$current_id = get_the_ID();
+?>
+
+<li class="<?php echo ($current_id == 517) ? 'current' : ''; ?>">
+    <a href="<?php the_permalink(517); ?>" title="<?php echo get_the_title(517); ?>"><?php echo get_the_title(517); ?></a>
+    <span class="fa arrow expand" style="margin-top: -36px;"></span>
+    <ul class="collapse" aria-expanded="false" style="height: 0px;">
+        <?php
+        $args = [
+            'post_type' => 'introduction',
+            'post__not_in' => [517,507],
+            'post__in' => [529,531,505,513,501],
+            'posts_per_page' => -1,
+        ];
+
+        $query = new WP_Query($args);
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                ?>
+                <li class="custom-metis-sub-item <?php echo ($current_id == get_the_ID()) ? 'current' : ''; ?>">
+                    <a id="height-a" title="<?php echo get_the_title(); ?>" href="<?php the_permalink(); ?>" class="sf-with-ul"><?php the_title(); ?></a>
+                </li>
+                <?php
+            }
+            wp_reset_postdata();
+        } else {
+            echo 'Không có trang nào dùng template này.';
+        }
+        ?>
+    </ul>
+</li>
+
+<li class="<?php echo ($current_id == 507) ? 'current' : ''; ?>">
+    <a href="<?php the_permalink(507); ?>" title="<?php echo get_the_title(507); ?>"><?php echo get_the_title(507); ?></a>
+    <span class="fa arrow expand" style="margin-top: -36px;"></span>
+    <ul class="collapse" aria-expanded="false" style="height: 0px;">
+        <?php
+        $args = [
+            'post_type' => 'introduction',
+            'post__not_in' => [517,507],
+            'post__in' => [511,521,499,523,533,503,515],
+            'posts_per_page' => -1,
+        ];
+
+        $query = new WP_Query($args);
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                ?>
+                <li class="custom-metis-sub-item <?php echo ($current_id == get_the_ID()) ? 'current' : ''; ?>">
+                    <a id="height-a" title="<?php echo get_the_title(); ?>" href="<?php the_permalink(); ?>" class="sf-with-ul"><?php the_title(); ?></a>
+                </li>
+                <?php
+            }
+            wp_reset_postdata();
+        } else {
+            echo 'Không có trang nào dùng template này.';
+        }
+        ?>
+    </ul>
+</li>
+
                                     </ul>
                                 </nav>
                             </aside>

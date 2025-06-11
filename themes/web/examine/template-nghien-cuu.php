@@ -3,6 +3,11 @@
 Template Name: Nghiên cứu
 */
 ?>
+<?php
+$term = get_term_by('id', 24, 'nghiencuu');
+ wp_redirect(get_term_link($term));
+ exit;
+?>
 <?php get_header("v2")?>
 <div class="section-banner">
     </div>
@@ -251,7 +256,7 @@ Template Name: Nghiên cứu
                                             <?php echo esc_html($term->name); ?>
                                         </a>
                                         <?php if (!empty($child_terms)) { ?>
-                                            <span id="span-id" class="fa arrow expand" style="margin-top: -52px;"></span>
+                                            <span id="span-id" class="fa arrow expand" style="margin-top: -36px;"></span>
                                             <ul class="collapse">
                                                 <?php foreach ($child_terms as $child) {
                                                     $child_link = get_term_link($child); ?>
