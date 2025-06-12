@@ -15,22 +15,20 @@
                                                 <li id="brcr_0"><a href="/index.php"><span>Trang chủ<i class="fa fa-lg fa-angle-right"></i></span></a></li>
                                                 <li id="brcr_1"><a href="<?php the_permalink(93); ?>"><span>Tin Tức<i class="fa fa-lg fa-angle-right"></i></span></a></li>
                                                 <li id="brcr_2">
-                                                    <?php
-                                            $post_id = get_the_ID();
-                                            $terms = get_the_terms($post_id, 'khoatrungtam');
-                                            
-                                            if (!empty($terms) && !is_wp_error($terms)) {
+                                                   <?php
+                                                        $term = get_queried_object();
 
-                                                foreach ($terms as $term) {
-                                                    $term_link = get_term_link( $term )
-                                                    ?>
-                                                    <a href="<?php echo esc_url( $term_link )?>"><span><?php echo $term->name?><i class="fa fa-lg fa-angle-right"></i></span></a>
-                                                    <?php
-                                                }
-                                            } else {
-                                                echo 'Bài viết này không có tag nào trong taxonomy này.';
-                                            }
-                                            ?>
+                                                        if (!empty($term) && !is_wp_error($term)) {
+                                                            $term_link = get_term_link($term);
+                                                            ?>
+                                                            <a href="<?php echo esc_url($term_link); ?>">
+                                                                <span><?php echo esc_html($term->name); ?><i class="fa fa-lg fa-angle-right"></i></span>
+                                                            </a>
+                                                            <?php
+                                                        } else {
+                                                            echo '<span>Không có chuyên mục nào.</span>';
+                                                        }
+                                                        ?>
                                                 </li>
                                             </ul>
                                         </div>

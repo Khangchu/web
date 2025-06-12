@@ -45,8 +45,8 @@
                 </div>
                 <div class="col-xs-24 col-sm-8 col-md-6 css-block-footer">
                 <div class="panel panel-default">
-	             <div class="panel-heading">Đơn vị trực thuộc</div>
-	                <div class="panel-body">
+	             <div class="panel-heading" style="padding-left: 30px;">Đơn vị trực thuộc</div>
+	                <div class="panel-body" style="padding-left: 30px;">
 		                <div class="menu_footer">
 	                        <ul>
 	    	                    <li><a href="/vi/khoa-trung-tam/" title="Khoa - Trung tâm">Khoa - Trung tâm</a></li>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="col-xs-24 col-sm-8 col-md-4" style="padding-right: 0px;">
                 <div class="panel panel-default">
-	            <div class="panel-heading">Sơ đồ trang web</div>
+	            <div class="panel-heading" style="white-space: nowrap;">Sơ đồ trang web</div>
 	            <div class="panel-body">
 		        <div class="content">
 		        <div class="rss-footer">

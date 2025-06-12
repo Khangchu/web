@@ -94,12 +94,7 @@ ol {
     min-height: 300px;
     width: 100%;
     border-top-width: 1px;
-    border-top-style: solid;
-    border-top-color: #428bca;
     border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #245682;
-    background-color: #245682;
     background-image: linear-gradient(to bottom,
             rgba(0, 0, 0, 0.1) 0,
             rgba(0, 0, 0, 0) 100%);
