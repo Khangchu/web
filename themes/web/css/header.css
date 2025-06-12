@@ -997,14 +997,10 @@ ul.slimmenu > li:hover > a {
     background-color: transparent !important;
     
 }
-div.v2 >.slimmenu > li:hover > a {
-    background-color: transparent !important;
-    color: #c02135 !important;
-}
+
 div.v2 >.slimmenu > li:active {
     background-color: transparent !important;
 }
-
 ul.slimmenu > li:active {
     background-color: transparent !important;
 
@@ -1153,7 +1149,7 @@ ul.slimmenu > li > a {
     max-width: 100%;
     padding: 1px;
 }
-/* iframe {
+/* iframe {h
     height: 465px
     ;width:829.25px
 } */
@@ -1835,9 +1831,6 @@ figure.table td, figure.table th {
     font-size: 16px;
     white-space: nowrap; /* Ngăn ngắt dòng */
     display: inline-block; /* Đảm bảo span không bị ảnh hưởng bởi các phần tử khác */
-}
-.slimmenu .current > a{
-    color: #c02135!important;
 }
 .has-submenu.current {
     background-color: transparent !important;
