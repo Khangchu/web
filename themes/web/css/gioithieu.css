@@ -1,0 +1,327 @@
+.third-nav {
+    margin-bottom: 0px;
+}
+.third-nav {
+    position: relative;
+    margin-bottom: 6px;
+}
+.third-nav .row {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #dcdcdc;
+}
+.third-nav .row {
+    border-width: 0;
+}
+.third-nav .bg {
+    background-color: transparent !important;
+}
+.third-nav .bg {
+    background-color: #eeeeee;
+    padding: 5px 5px 3px;
+}
+.third-nav .breadcrumbs-wrap {
+    margin: 35px 0;
+}
+.breadcrumbs-wrap {
+    position: relative;
+}
+.breadcrumbs-wrap .display {
+    height: 25px !important;
+    line-height: 1;
+}
+.breadcrumbs-wrap .display {
+    height: 35px;
+    overflow: hidden;
+}
+.subs-breadcrumbs li:last-child,
+.subs-breadcrumbs li:last-child a,
+.subs-breadcrumbs {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.breadcrumbs a, .show-subs-breadcrumbs {
+    font-size: 19px;
+    font-family: 'LinhAvantGarde', sans-serif !important;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.breadcrumbs a, .show-subs-breadcrumbs, .breadcrumbs a:hover, .show-subs-breadcrumbs:hover {
+    background-color: transparent;
+    padding: 10px 9px;
+    color: #b41d24;
+}
+.show-subs-breadcrumbs {
+    padding-right: 5px;
+    margin-right: 7px;
+    width: 30px;
+    text-align: center;
+}
+.breadcrumbs a, .show-subs-breadcrumbs {
+    background-color: #dcdcdc;
+    padding: 0.6em 1em;
+    float: left;
+    text-decoration: none;
+    color: #333;
+    position: relative;
+}
+.breadcrumbs-wrap .display em {
+    position: relative;
+    top: -7px;
+    font-weight: bold;
+    color: #b41d24;
+}
+.fa-lg {
+    font-size: 1.33333333em !important;
+    line-height: .75em !important;
+    vertical-align: -15%;
+}
+.breadcrumbs-wrap .list-none {
+    margin-top: -6px;
+}
+.list-none {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.breadcrumbs {
+    display: inline-block;
+}
+.breadcrumbs li {
+    margin-left: 0px !important;
+}
+.breadcrumbs li {
+    float: left;
+    margin: 0 0.5em 0 1em;
+}
+.breadcrumbs a:first-child {
+    padding-left: 0px;
+}
+.breadcrumbs a, .show-subs-breadcrumbs {
+    font-size: 19px;
+    font-family: 'LinhAvantGarde', sans-serif !important;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.breadcrumbs a, .show-subs-breadcrumbs, .breadcrumbs a:hover, .show-subs-breadcrumbs:hover {
+    background-color: transparent;
+    padding: 10px 9px;
+    color: #b41d24;
+}
+.breadcrumbs li span {
+    display: inline-block;
+    white-space: normal;
+    word-break: break-word;
+    max-width: 100%;
+    font-size: 17px;
+}
+.breadcrumbs li span i {
+    margin-left: 5px;
+    font-weight: bold;
+    position: relative;
+    top: -1px;
+}
+.breadcrumbs {
+    display: inline-block;
+}
+.breadcrumbs li:last-child span i {
+    display: none;
+}
+#body .panel-default {
+    border-color: transparent;
+    background-color: #fffbfb;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+#body .css-panel-body {
+    padding-top: 0px;
+    border-left: 1px solid #ccc;
+}
+.color-h1-red {
+    color: #c02135;
+    text-transform: uppercase;
+}
+.title {
+    font-size: 22px;
+}
+.margin-bottom-lg {
+    margin-bottom: 15px;
+}
+.clear {
+    clear: both;
+}
+#page-bodyhtml, #news-bodyhtml, .hometext {
+    font-size: 17px;
+}
+.bodytext {
+    word-break: keep-all;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: visible;
+    line-height: 1.7em;
+}
+.bodytext p {
+    margin-bottom: 15px !important;
+}
+.bodytext ul {
+    list-style-type: disc !important;
+    padding-left: 40px !important;
+    margin-bottom: 10px !important;
+}
+.nv-list-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.page .nv-list-item li {
+    display: flex
+;
+}
+.nv-list-item li {
+    padding: 4px;
+    margin: 0 !important;
+}
+.page .nv-list-item li em {
+    position: relative;
+    top: 2px;
+}
+.css-left .panel-default>.panel-heading, .no-padding-css .panel-default>.panel-heading, .no-padding-css .metismenu .sidebar-nav ul a:hover, .no-padding-css .metismenu .sidebar-nav ul a:focus, .no-padding-css .metismenu .sidebar-nav ul a:active {
+    background-color: #B41D24 !important;
+}
+.css-left .panel-default>.panel-heading, .no-padding-css .panel-default>.panel-heading {
+    color: #FFF;
+    background-color: #b41d24;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+}
+.panel-default>.panel-heading {
+    border-radius: 0 !important;
+}
+.css-left .panel-body, .no-padding-css .panel-body {
+    padding: 10px;
+}
+.metismenu .sidebar {
+    display: block;
+    float: left;
+    width: 100%;
+    background: #333;
+}
+.css-left .metismenu .sidebar-nav, .no-padding-css .metismenu .sidebar-nav {
+    background: #fdfafb;
+    background-image: none;
+}
+.metismenu .sidebar-nav {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    background: #205fa0;
+    background-image: linear-gradient(to right, #2671b5 4px, #205fa0 4px);
+    background-repeat: repeat-x;
+    margin: 0;
+}
+.metismenu .sidebar-nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.metismenu .sidebar-nav ul li, .sidebar-nav ul a {
+    display: block;
+}
+.custom-about-menu .sidebar-nav ul li.current > a {
+    background-color: #b41d24 !important;
+    color: #fff !important;
+}
+.css-left .metismenu .sidebar-nav ul a, .no-padding-css .metismenu .sidebar-nav ul a {
+    color: #4e4e4e ;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 10px 20px;
+}
+.metismenu .sidebar-nav ul>li>a {
+    padding-right: 30px !important;
+}
+.metismenu .sidebar-nav ul a {
+    padding: 10px 20px;
+    color: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+}
+.metismenu a {
+    color: #fff ;
+    text-decoration: none !important;
+}
+.custom-about-menu .sidebar-nav ul li.current a ~ .arrow, .custom-about-menu .sidebar-nav ul a:hover ~ .arrow {
+    color: #fff !important;
+}
+.metismenu .fa.arrow {
+    height: 28px;
+}
+.css-left .metismenu .arrow, .no-padding-css .metismenu .arrow {
+    color: #3d3d3d !important;
+}
+.css-left .metismenu .arrow, .no-padding-css .metismenu .arrow {
+    position: absolute;
+    right: 0px;
+}
+.metismenu .arrow {
+    float: right;
+    margin-top: -33px;
+    margin-right: 6px;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    width: 28px;
+    line-height: 28px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 14px;
+    -webkit-border-radius: 14px;
+    font-size: 15px;
+}
+.custom-about-menu .sidebar-nav ul li.current a ~ .arrow, .custom-about-menu .sidebar-nav ul a:hover ~ .arrow {
+    color: #fff !important;
+}
+.metismenu .fa.arrow:before {
+    content: ' \f107 ';
+}
+.metismenu .active > .fa.arrow:before {
+    content: ' \f106 ';
+}
+.metismenu .fa.arrow:before {
+    display: block;
+}
+.metismenu .sidebar-nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.css-left .metismenu .sidebar-nav ul ul a, .no-padding-css .metismenu .sidebar-nav ul ul a {
+    background-color: #fdfafb;
+    padding-left: 20px;
+    position: relative;
+}
+.custom-about-menu .sidebar-nav ul li.current > a:hover {
+    background-color: #B41D24  !important; 
+    color: #fff !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+.custom-metis-sub-item a:hover {
+    background-color: #B41D24 !important;
+    color: #fff !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+.custom-metis-sub-item a:hover {
+    background-color: #B41D24 !important;
+    color: #fff !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+.menu_56 li a:hover {
+    background-color: #B41D24 !important;
+    color: #fff !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+.custom-metis-sub-item.active2 > a {
+    background-color: #B41D24 !important;
+    color: #fff !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+

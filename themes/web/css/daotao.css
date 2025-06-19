@@ -1,0 +1,78 @@
+.content_flex {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+.content_flex h2, .content_flex>span {
+    font-size: 28px !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+.content_flex h2 a, .content_flex span a {
+    border-bottom: 3px solid #463f49;
+    color: #463f49;
+}
+.bg-content-tuyen-sinh .bg-wraper:first-child .pd-bottom {
+    padding-top: 0px;
+}
+.bg-content-tuyen-sinh .pd-bottom, .bg-image-content .pd-bottom {
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+.pd-bottom {
+    padding-left: 7px;
+    padding-right: 0px;
+}
+.ds-grid {
+    display: grid;
+    grid-gap: 70px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.imgae-flex {
+    height: 400px;
+    overflow: hidden;
+}
+.img-hover-zoom img {
+    transition: transform .5s ease;
+}
+.imgae-flex img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.content_flex div {
+    color: #3d3d3d;
+}
+#print h1, h2, p {
+    margin: 0 0 6px 0;
+    padding: 0;
+}
+.content_flex ul {
+    list-style: disc;
+    padding-left: 15px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+.content_flex ul li {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.content_flex ul li::marker {
+    color: #c02135 !important;
+    font-size: 20px !important;
+}
+.bg-content-wraper {
+    background-color: #d4d3d3;
+}
+.news_column .alert-info {
+    background-color: transparent;
+    border-color: transparent;
+    color: #4e4e4e !important;
+}
+.entry-content img {
+    height: auto !important;
+    max-width: 100%;
+    display: block;
+}
